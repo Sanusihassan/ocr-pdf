@@ -14,6 +14,7 @@ export interface ToolState {
   showOptions: boolean;
   nav_height: number;
   selectedLanguages: { value: string; label: string }[];
+  pageCount: number;
 }
 
 const initialState: ToolState = {
@@ -30,6 +31,7 @@ const initialState: ToolState = {
   showOptions: false,
   nav_height: 0,
   selectedLanguages: [],
+  pageCount: 0,
 };
 
 const toolSlice = createSlice({
@@ -85,6 +87,9 @@ const toolSlice = createSlice({
     ) {
       state.selectedLanguages = action.payload;
     },
+    setPageCount(state: ToolState, action: PayloadAction<number>) {
+      state.pageCount = action.payload;
+    },
   },
 });
 
@@ -103,6 +108,7 @@ export const {
   setShowOptions,
   setNavHeight,
   setSelectedLanguages,
+  setPageCount
 } = toolSlice.actions;
 
 export default toolSlice.reducer;

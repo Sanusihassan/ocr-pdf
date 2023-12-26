@@ -39,73 +39,76 @@ export function useRotatedImage(imageUrl: string): string | null {
 }
 
 const DEFAULT_PDF_IMAGE = "/images/corrupted.png";
-function emptyPDFHandler(dispatch: Dispatch<AnyAction>, errors: _) {
+export function emptyPDFHandler(dispatch: Dispatch<AnyAction>, errors: _) {
   dispatch(setErrorMessage(errors.EMPTY_FILE.message));
   dispatch(setErrorCode("ERR_EMPTY_FILE"));
   return DEFAULT_PDF_IMAGE;
 }
-// i don't know why but when i pass any other file type except images or pdfs this function will cause the application to crash by entering an infinite loop
-export const getFileDetailsTooltipContent = async (
-  file: File,
-  pages: string,
-  page: string,
-  lang: string,
-  dispatch: Dispatch<AnyAction>,
-  errors: _
-): Promise<string> => {
-  const sizeInBytes = file.size;
-  let size: string = "";
-  let isoCode = lang === "fr" ? "fr-FR" : lang == "" ? "en" : lang;
-  size = new Intl.NumberFormat(isoCode, {
-    notation: "compact",
-    style: "unit",
-    unit: "byte",
-    unitDisplay: "narrow",
-  }).format(sizeInBytes);
-  let tooltipContent = "<bdi>" + size;
-  if (file.size === 0) {
-    emptyPDFHandler(dispatch, errors);
-    throw Error("ERROR: FILE_SIZE_ZERO");
-  } else {
-    if (
-      file.type !== "image/png" &&
-      file.type !== "image/jpeg" &&
-      file.type !== "application/pdf"
-    ) {
-      return tooltipContent;
-    }
-    try {
-      if (file.type === "image/jpeg" || file.type === "image/png") {
-        const image = new Image();
-        image.src = URL.createObjectURL(file);
-        await new Promise<void>((resolve) => {
-          image.onload = () => {
-            tooltipContent += `</bdi> - <bdi>${image.width} x ${image.height}</bdi>`;
-            resolve();
-          };
-        });
-      } else if (file.type === "application/pdf") {
-        const url = URL.createObjectURL(file);
-        const pdf = await getDocument(url).promise;
+// please turn this into a useCallBack function that depends on the pageCount which is available on my redux global store:
+// const pageCount = useSelector(
+// (state: { tool: ToolState }) => state.tool.pageCount
+// );
+// export const getFileDetailsTooltipContent = async (
+//   file: File,
+//   pages: string,
+//   page: string,
+//   lang: string,
+//   dispatch: Dispatch<AnyAction>,
+//   errors: _,
+//   pageCount: number
+// ): Promise<string> => {
+//   const sizeInBytes = file.size;
+//   let size: string = "";
+//   let isoCode = lang === "fr" ? "fr-FR" : lang == "" ? "en" : lang;
+//   size = new Intl.NumberFormat(isoCode, {
+//     notation: "compact",
+//     style: "unit",
+//     unit: "byte",
+//     unitDisplay: "narrow",
+//   }).format(sizeInBytes);
+//   let tooltipContent = "<bdi>" + size;
+//   if (file.size === 0) {
+//     emptyPDFHandler(dispatch, errors);
+//     throw Error("ERROR: FILE_SIZE_ZERO");
+//   } else {
+//     if (
+//       file.type !== "image/png" &&
+//       file.type !== "image/jpeg" &&
+//       file.type !== "application/pdf"
+//     ) {
+//       return tooltipContent;
+//     }
+//     try {
+//       if (file.type === "image/jpeg" || file.type === "image/png") {
+//         const image = new Image();
+//         image.src = URL.createObjectURL(file);
+//         await new Promise<void>((resolve) => {
+//           image.onload = () => {
+//             tooltipContent += `</bdi> - <bdi>${image.width} x ${image.height}</bdi>`;
+//             resolve();
+//           };
+//         });
+//       } else if (file.type === "application/pdf") {
+//         const url = URL.createObjectURL(file);
+//         // const pdf = await getDocument(url).promise;
+//         console.log("INFORMATION: ===>", pageCount > 1 , pages , page)
+//         tooltipContent += `</bdi> - <bdi>${
+//           lang === "ar" && pageCount === 1 ? "" : pageCount + " "
+//         }${pageCount > 1 ? pages : page}<bdi>`;
+//         URL.revokeObjectURL(url);
+//         if (!file.size) {
+//           emptyPDFHandler(dispatch, errors);
+//         }
+//       }
+//     } catch (e) {
+//       if (!file.size) {
+//         emptyPDFHandler(dispatch, errors);
+//       }
+//     }
+//   }
 
-        const pageCount = pdf.numPages || 0;
-        tooltipContent += `</bdi> - <bdi>${
-          lang === "ar" && pageCount === 1 ? "" : pageCount + " "
-        }${pageCount > 1 ? pages : page}<bdi>`;
-        URL.revokeObjectURL(url);
-        if (!file.size) {
-          emptyPDFHandler(dispatch, errors);
-        }
-      }
-    } catch (e) {
-      if (!file.size) {
-        emptyPDFHandler(dispatch, errors);
-      }
-    }
-  }
-
-  return tooltipContent;
-};
+//   return tooltipContent;
+// };
 
 /**
  * this is the current function and it's working,

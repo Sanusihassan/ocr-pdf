@@ -2,7 +2,7 @@ import { useEffect, useState, RefObject, useContext } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 
 import {
-  getFileDetailsTooltipContent,
+  // getFileDetailsTooltipContent,
   getFirstPageAsImage,
   getPlaceHoderImageUrl,
   isDraggableExtension,

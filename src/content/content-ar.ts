@@ -57,7 +57,7 @@ export const edit_page: _edit_page = {
     document_languages: "لغات الوثيقة",
     input_placeholder: "اختر اللغات",
   },
-  pages: "صفحة",
+  pages: "صفحات",
   page: "صفحة واحدة",
 };
 

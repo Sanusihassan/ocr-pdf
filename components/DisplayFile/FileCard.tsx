@@ -5,11 +5,14 @@ import type { errors as _ } from "../../content";
 import { useEffect, useState } from "react";
 import { Loader } from "./Loader";
 import {
-  getFileDetailsTooltipContent,
+  calculatePages,
+  // getFileDetailsTooltipContent,
   getFirstPageAsImage,
   getPlaceHoderImageUrl,
 } from "../../src/utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ToolState, setPageCount } from "@/src/store";
+import { useGetFileDetailsTooltipContent } from "@/src/hooks/useGetFileDetailsTooltipContent";
 type OmitFileName<T extends ActionProps> = Omit<T, "fileName">;
 
 type CardProps = OmitFileName<ActionProps> & {
@@ -37,6 +40,9 @@ const FileCard = ({
   const [imageUrl, setImageUrl] = useState("");
   const [tooltipSize, setToolTipSize] = useState("");
   const dispatch = useDispatch();
+  const pageCount = useSelector(
+    (state: { tool: ToolState }) => state.tool.pageCount
+  );
   let isSubscribed = true;
   // if (true) {
   // } else {
@@ -52,12 +58,17 @@ const FileCard = ({
   //   let tooltipContent = size;
   // }
   // }
+  const getFileDetailsTooltipContent = useGetFileDetailsTooltipContent({
+    pageCount,
+    dispatch,
+  });
   useEffect(() => {
     (async () => {
+      const _pageCount = await calculatePages(file);
+      dispatch(setPageCount(_pageCount));
       let size = await getFileDetailsTooltipContent(
         file,
         ...fileDetailProps,
-        dispatch,
         errors
       );
       setToolTipSize(size);
@@ -89,7 +100,7 @@ const FileCard = ({
     return () => {
       isSubscribed = false;
     };
-  }, [extension, file]);
+  }, [extension, file, pageCount]);
   return (
     <div
       className="card item"
