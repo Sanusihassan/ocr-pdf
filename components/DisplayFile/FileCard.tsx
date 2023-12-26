@@ -1,4 +1,3 @@
-// this is where i'm calling the getFileDetailsTooltipContent function, the function itself does'nt seems to cause the infinite loop:
 import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
 import { ActionDiv, ActionProps } from "./ActionDiv";
 import { Tooltip } from "react-tooltip";
@@ -95,7 +94,7 @@ const FileCard = ({
     <div
       className="card item"
       data-tooltip-id={`item-tooltip-${index}`}
-      data-tooltip-content={tooltipSize}
+      data-tooltip-html={tooltipSize}
       data-tooltip-place="top"
       {...(isDraggable ? provided.dragHandleProps : {})}
     >
