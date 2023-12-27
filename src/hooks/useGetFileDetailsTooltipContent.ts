@@ -71,7 +71,7 @@ export const useGetFileDetailsTooltipContent = ({
             tooltipContent += pageCount > 1 ? pageCount + " " + pages : page;
           }
 
-          tooltipContent += "<bdi>";
+          tooltipContent += "</bdi>";
           URL.revokeObjectURL(url);
           if (!file.size) {
             emptyPDFHandler(dispatch, errors);
