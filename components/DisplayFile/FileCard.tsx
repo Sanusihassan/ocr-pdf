@@ -1,12 +1,12 @@
-import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
+// the problem with this component is that when pageCount is updated it rerenders completely, but i want only the data-tooltip-html={tooltipSize} area to be updated
+// i.e the part of the component where it renders the tooltipSize
 import { ActionDiv, ActionProps } from "./ActionDiv";
 import { Tooltip } from "react-tooltip";
-import type { errors as _ } from "../../content";
+import type { errors as _, errors } from "../../content";
 import { useEffect, useState } from "react";
 import { Loader } from "./Loader";
 import {
   calculatePages,
-  // getFileDetailsTooltipContent,
   getFirstPageAsImage,
   getPlaceHoderImageUrl,
 } from "../../src/utils";
@@ -18,19 +18,49 @@ type OmitFileName<T extends ActionProps> = Omit<T, "fileName">;
 type CardProps = OmitFileName<ActionProps> & {
   index: number;
   file: File;
-  isDraggable: boolean;
-  provided: DraggableProvided;
-  snapshot: DraggableStateSnapshot;
   errors: _;
   loader_text: string;
   fileDetailProps: [string, string, string];
 };
 
+const TooltipSizeComponent = ({
+  file,
+  index,
+  errors,
+  fileDetailProps,
+}: Omit<CardProps, "extension" | "loader_text">) => {
+  const [tooltipSize, setToolTipSize] = useState("");
+  const dispatch = useDispatch();
+  const pageCount = useSelector(
+    (state: { tool: ToolState }) => state.tool.pageCount
+  );
+  const getFileDetailsTooltipContent = useGetFileDetailsTooltipContent({
+    pageCount,
+    dispatch,
+  });
+  useEffect(() => {
+    (async () => {
+      let size = await getFileDetailsTooltipContent(
+        file,
+        ...fileDetailProps,
+        errors
+      );
+      setToolTipSize(size);
+    })();
+  }, [pageCount]);
+  return (
+    <div
+      data-tooltip-id={`item-tooltip-${index}`}
+      className="tooltip-wrapper"
+      data-tooltip-html={tooltipSize}
+      data-tooltip-place="top"
+    />
+  );
+};
+
 const FileCard = ({
   index,
   file,
-  isDraggable,
-  provided,
   errors,
   extension,
   loader_text,
@@ -38,40 +68,17 @@ const FileCard = ({
 }: CardProps) => {
   const [showLoader, setShowLoader] = useState(true);
   const [imageUrl, setImageUrl] = useState("");
-  const [tooltipSize, setToolTipSize] = useState("");
+
   const dispatch = useDispatch();
   const pageCount = useSelector(
     (state: { tool: ToolState }) => state.tool.pageCount
   );
   let isSubscribed = true;
-  // if (true) {
-  // } else {
-  //   const sizeInBytes = file.size;
-  //   let size: string = "";
-  //   let isoCode = lang === "fr" ? "fr-FR" : lang == "" ? "en" : lang;
-  //   size = new Intl.NumberFormat(isoCode, {
-  //     notation: "compact",
-  //     style: "unit",
-  //     unit: "byte",
-  //     unitDisplay: "narrow",
-  //   }).format(sizeInBytes);
-  //   let tooltipContent = size;
-  // }
-  // }
-  const getFileDetailsTooltipContent = useGetFileDetailsTooltipContent({
-    pageCount,
-    dispatch,
-  });
+
   useEffect(() => {
     (async () => {
       const _pageCount = await calculatePages(file);
       dispatch(setPageCount(_pageCount));
-      let size = await getFileDetailsTooltipContent(
-        file,
-        ...fileDetailProps,
-        errors
-      );
-      setToolTipSize(size);
     })();
     const processFile = async () => {
       try {
@@ -100,15 +107,15 @@ const FileCard = ({
     return () => {
       isSubscribed = false;
     };
-  }, [extension, file, pageCount]);
+  }, [extension, file]);
   return (
-    <div
-      className="card item"
-      data-tooltip-id={`item-tooltip-${index}`}
-      data-tooltip-html={tooltipSize}
-      data-tooltip-place="top"
-      {...(isDraggable ? provided.dragHandleProps : {})}
-    >
+    <div className="card item">
+      <TooltipSizeComponent
+        index={index}
+        errors={errors}
+        file={file}
+        fileDetailProps={fileDetailProps}
+      />
       {showLoader ? <Loader loader_text={loader_text} /> : null}
       <bdi>
         <Tooltip id={`item-tooltip-${index}`} />

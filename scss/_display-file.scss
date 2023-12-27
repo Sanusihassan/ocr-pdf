@@ -75,6 +75,10 @@
   .card.item {
     height: 100%;
     @extend %show-action;
+    @include extend("position-relative");
+    .tooltip-wrapper {
+      @include extend("position-absolute w-100 h-100");
+    }
   }
 
   // .action-div {
