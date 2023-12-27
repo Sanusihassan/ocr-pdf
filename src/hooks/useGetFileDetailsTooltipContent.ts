@@ -1,16 +1,4 @@
-/**
- * Unhandled Runtime Error
-Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
-1. You might have mismatching versions of React and the renderer (such as React DOM)
-2. You might be breaking the Rules of Hooks
-3. You might have more than one copy of React in the same app
-See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.
-
-Source
- */
 import { Dispatch, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ToolState } from "../store";
 import { emptyPDFHandler } from "../utils";
 import type { errors } from "@/content";
 import { AnyAction } from "@reduxjs/toolkit";
@@ -68,18 +56,18 @@ export const useGetFileDetailsTooltipContent = ({
         } else if (file.type === "application/pdf") {
           const url = URL.createObjectURL(file);
           // const pdf = await getDocument(url).promise;
-          console.log("INFORMATION: ===>", pageCount > 1, pages, page);
           //   tooltipContent += `</bdi> - <bdi>${
           //     lang === "ar" && pageCount === 1 ? "" : pageCount + " "
           //   }${pageCount > 1 ? pages : page}<bdi>`;
           tooltipContent += "</bdi> - <bdi>";
-          console.log(pageCount + " " + pages, pages, page)
+          console.log(pageCount + " " + pages, pages, page);
           if (lang === "ar" && pageCount === 1) {
             tooltipContent += page;
-          } else if (lang === "ar" && pageCount > 1) {
+          } else if (pageCount === 2 && lang === "ar") {
+            tooltipContent += " - صفحتين";
+          } else if (lang === "ar" && pageCount > 2) {
             tooltipContent += pageCount + " " + pages;
           } else if (lang !== "ar") {
-            console.log("it's beign set here");
             tooltipContent += pageCount > 1 ? pageCount + " " + pages : page;
           }
 
