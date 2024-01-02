@@ -60,7 +60,7 @@ export const useGetFileDetailsTooltipContent = ({
           //     lang === "ar" && pageCount === 1 ? "" : pageCount + " "
           //   }${pageCount > 1 ? pages : page}<bdi>`;
           tooltipContent += "</bdi> - <bdi>";
-          console.log(pageCount + " " + pages, pages, page);
+
           if (lang === "ar" && pageCount === 1) {
             tooltipContent += page;
           } else if (pageCount === 2 && lang === "ar") {

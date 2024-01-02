@@ -10,7 +10,7 @@ import {
   setShowDownloadBtn,
 } from "../store";
 
-// this is the handleUpload function that is calling the download function maybe the issue is here
+let prevState: { value: string; label: string }[] = [];
 export const handleUpload = async (
   e: React.FormEvent<HTMLFormElement>,
   downloadBtn: RefObject<HTMLAnchorElement>,
@@ -21,16 +21,28 @@ export const handleUpload = async (
   },
   files: File[],
   errors: _,
-  filesLengthOnSubmit: number,
-  setFilesLengthOnSubmit: (value: number) => void,
+  filesOnSubmit: string[],
+  setFilesOnSubmit: (value: string[]) => void,
   selectedLanguages: { value: string; label: string }[]
 ) => {
   e.preventDefault();
   dispatch(setIsSubmitted(true));
 
   if (!files) return;
-  // subscribe to the files state and get the previous files
-  if (filesLengthOnSubmit == files.length) {
+  // Extract file names from the File[] array
+  const fileNames = files.map((file) => file.name);
+
+  // Check if every file name in files is present in filesOnSubmit
+  const allFilesPresent = fileNames.every((fileName) =>
+    filesOnSubmit.includes(fileName)
+  );
+  let selectedLanguagesJSON = JSON.stringify(selectedLanguages);
+
+  if (
+    allFilesPresent &&
+    files.length === filesOnSubmit.length &&
+    JSON.stringify(prevState) === selectedLanguagesJSON
+  ) {
     dispatch(setShowDownloadBtn(true));
     dispatch(resetErrorMessage());
     return;
@@ -41,7 +53,7 @@ export const handleUpload = async (
     formData.append("files", files[i]);
   }
   // selected languages
-  formData.append("selectedLanguages", JSON.stringify(selectedLanguages));
+  formData.append("selectedLanguages", selectedLanguagesJSON);
   let url;
   // @ts-ignore
   if (process.env.NODE_ENV === "development") {
@@ -90,8 +102,8 @@ export const handleUpload = async (
       outputFileName,
       downloadBtn
     );
-    setFilesLengthOnSubmit(files.length);
-
+    setFilesOnSubmit(files.map((f) => f.name));
+    prevState = selectedLanguages;
     if (response.status !== 200) {
       throw new Error(`HTTP error! status: ${response.status}`);
     } else {
