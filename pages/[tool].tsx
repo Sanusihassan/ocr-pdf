@@ -9,14 +9,8 @@ import {
   downloadFile,
 } from "../src/content/content";
 import { useRouter } from "next/router";
+import type { tool as _tool } from "../content";
 import { OCRPDFHOWTO } from "@/src/how-to";
-
-type data_type = {
-  title: string;
-  description: string;
-  color: string;
-  type: string;
-};
 
 export async function getStaticPaths() {
   const paths = Object.keys(routes).map((key) => ({
@@ -38,7 +32,7 @@ export async function getStaticProps({
   return { props: { item } };
 }
 
-export default ({ item }: { item: data_type }) => {
+export default ({ item }: { item: _tool["Ocr_PDF"] }) => {
   const router = useRouter();
   const { asPath } = router;
   const websiteSchema = {
@@ -51,7 +45,7 @@ export default ({ item }: { item: data_type }) => {
   return (
     <>
       <Head>
-        <title>{`PDFEquips | ${item.title}`}</title>
+        <title>{item.seoTitle}</title>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -66,7 +60,6 @@ export default ({ item }: { item: data_type }) => {
         />
         <meta name="description" content={item.description} />
         <link rel="icon" href="/logo.png" />
-        {/* needed for styles */}
         <link
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"

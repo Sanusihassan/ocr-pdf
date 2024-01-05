@@ -12,8 +12,10 @@ import type {
 export const tool: _tool = {
   Ocr_PDF: {
     title: "OCR PDF",
+    seoTitle:
+      "OCR PDF en ligne - Convertir PDF en texte recherchable | PDFEquips",
     description:
-      "Transformez les PDF statiques en documents interactifs et interrogeables avec des capacités précises de reconnaissance et de sélection de texte.",
+      "Transformez les PDF statiques en documents interactifs et recherchables avec des capacités précises de reconnaissance et de sélection de texte.",
     color: "#006266",
     type: ".pdf",
     to: "/ocr-pdf",

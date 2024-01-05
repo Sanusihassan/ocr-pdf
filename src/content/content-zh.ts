@@ -12,8 +12,9 @@ import type {
 export const tool: _tool = {
   Ocr_PDF: {
     title: "OCR PDF",
+    seoTitle: "在线 OCR PDF - 将 PDF 转换为可搜索的文本 | PDFEquips",
     description:
-      "将静态PDF转换为具有精确文本识别和选择功能的交互式可搜索文档。",
+      "将静态 PDF 转换为具有精确文本识别和选择功能的交互式可搜索文档。",
     color: "#006266",
     type: ".pdf",
     to: "/ocr-pdf",

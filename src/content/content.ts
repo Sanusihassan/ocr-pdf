@@ -1,6 +1,7 @@
 export const tool = {
   Ocr_PDF: {
     title: "OCR PDF",
+    seoTitle: "OCR PDF Online - Convert PDF to Searchable Text | PDFEquips",
     description:
       "Transform static PDFs into interactive, searchable documents with precise text recognition and selection capabilities.",
     color: "#006266",
@@ -63,7 +64,6 @@ export const downloadFile = {
     "ocr-pdf": "Back To OCR PDF",
   },
 };
-
 
 export const errors = {
   EMPTY_FILE: {
