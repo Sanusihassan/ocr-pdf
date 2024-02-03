@@ -7,8 +7,8 @@ module.exports = withTM({
   sassOptions: {
     includePaths: [path.join(__dirname, "node_modules")],
   },
-  // assetPrefix: isProd ? "/tool-pdf" : "",
-  output: "standalone",
+  assetPrefix: isProd ? "/ocr-pdf" : "",
+  output: "export",
   webpack: (config, { isServer }) => {
     // Only run this configuration on the client side
     if (!isServer) {

@@ -3,7 +3,7 @@ import { ActionDiv } from "./ActionDiv";
 import { Tooltip } from "react-tooltip";
 import type { errors as _ } from "../../content";
 import { useDispatch } from "react-redux";
-import { getFileDetailsTooltipContent } from "../../src/utils";
+// import { getFileDetailsTooltipContent } from "../../src/utils";
 import { Loader } from "./Loader";
 interface ImageCardProps {
   index: number;
@@ -30,15 +30,15 @@ const ImageCard: React.FC<ImageCardProps> = ({
   const [tooltipSize, setToolTipSize] = useState("");
   const dispatch = useDispatch();
   let isSubscribed = true;
-  let p = getFileDetailsTooltipContent(
-    file,
-    ...fileDetailProps,
-    dispatch,
-    errors
-  );
-  p.then((size) => {
-    setToolTipSize(size);
-  });
+  // let p = getFileDetailsTooltipContent(
+  //   file,
+  //   ...fileDetailProps,
+  //   dispatch,
+  //   errors
+  // );
+  // p.then((size) => {
+  //   setToolTipSize(size);
+  // });
   useEffect(() => {
     const processFile = async () => {
       try {
