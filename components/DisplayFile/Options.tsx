@@ -34,10 +34,12 @@ const OCRPDF: React.FC<OCRPDFProps> = ({ ocr_pdf, languages }) => {
   const selectedLanguages = useSelector(
     (state: { tool: ToolState }) => state.tool.selectedLanguages
   );
-  const options = Object.keys(languages).map((key) => ({
-    value: key,
-    label: languages[key].nativeName,
-  }));
+  const options = Object.entries(languages).map(
+    ([value, language]: [string, { name: string, nativeName: string }]) => ({
+      value,
+      label: `${language.name} (${language.nativeName})`,
+    })
+  );
   const handleSelectChange = (selectedOptions: any) => {
     if (selectedOptions && selectedOptions.length > 3) {
       // If more than 3 options are selected, remove the last one
@@ -70,7 +72,7 @@ const OCRPDF: React.FC<OCRPDFProps> = ({ ocr_pdf, languages }) => {
         classNamePrefix="select"
         placeholder={ocr_pdf.input_placeholder}
         onChange={handleSelectChange}
-        // isDisabled={selectedLanguages.length === 3}
+      // isDisabled={selectedLanguages.length === 3}
       />
     </div>
   );
