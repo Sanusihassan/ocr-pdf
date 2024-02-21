@@ -1,23 +1,10 @@
-import { useEffect, useState, RefObject, useContext } from "react";
+import { useEffect, useState } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 
-import {
-  // getFileDetailsTooltipContent,
-  getFirstPageAsImage,
-  getPlaceHoderImageUrl,
-  isDraggableExtension,
-} from "../src/utils";
-
-import { useRouter } from "next/router";
-
-import { validateFiles } from "../src/utils";
 
 import type { errors as _, edit_page } from "../content";
 import Files from "./DisplayFile/Files";
 // import { ToolStoreContext } from "../src/ToolStoreContext";
-import { useSelector, useDispatch } from "react-redux";
-import { ToolState, resetErrorMessage, setPath } from "../src/store";
-import { useFileStore } from "../src/file-store";
 type propTypes = {
   extension: string;
   pages: string;
@@ -38,35 +25,18 @@ const DisplayFile = ({
   const [showSpinner, setShowSpinner] = useState(true);
   const [toolTipSizes, setToolTipSizes] = useState<string[]>([]);
   // actual files
-  const { files, setImageUrls } = useFileStore();
-  // state variables:
-  const statePath = useSelector(
-    (state: { tool: ToolState }) => state.tool.path
-  );
-  const stateFocus = useSelector(
-    (state: { tool: ToolState }) => state.tool.focus
-  );
-  const stateClick = useSelector(
-    (state: { tool: ToolState }) => state.tool.click
-  );
-  const dispatch = useDispatch();
-  // router
-  const router = useRouter();
-  let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
 
   useEffect(() => {
-    // set the path if it's not already set
-    if (statePath == "" || statePath !== path) {
-      dispatch(setPath(path));
-    }
-    const isValid = validateFiles(files, extension, errors, dispatch, {
-      path: statePath,
-      focus: stateFocus,
-      click: stateClick,
-    });
-    if (isValid) {
-      dispatch(resetErrorMessage());
-    }
+    // // set the path if it's not already set
+    // if (statePath == "" || statePath !== path) {
+    //   dispatch(setPath(path));
+    // }
+    // const isValid = validateFiles(files, extension, errors, dispatch, {
+    //   path: statePath,
+    //   focus: stateFocus,
+    //   click: stateClick,
+    // });
+
     // const max_files = 2;
     // if (state && files.length > max_files) {
     //   state?.setErrorMessage(errors.MAX_FILES_EXCEEDED.message);

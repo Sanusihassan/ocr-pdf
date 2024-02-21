@@ -1,4 +1,4 @@
-import { ToolState, setSelectedLanguages } from "@/src/store";
+import { ToolState, setField } from "@/src/store";
 import type { edit_page as _ } from "../../content";
 import { languages } from "@/src/content/content";
 export interface OptionsProps {
@@ -46,10 +46,13 @@ const OCRPDF: React.FC<OCRPDFProps> = ({ ocr_pdf, languages }) => {
       selectedOptions.pop();
     }
     dispatch(
-      setSelectedLanguages(
-        selectedOptions
-          ? selectedOptions.map((option: any) => option.value)
-          : []
+      setField(
+        {
+          selectedLanguages:
+            selectedOptions
+              ? selectedOptions.map((option: any) => option.value)
+              : []
+        }
       )
     );
   };

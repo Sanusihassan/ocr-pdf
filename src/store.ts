@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
+type WritableDraft<T> = {
+  -readonly [K in keyof T]: Draft<T[K]>;
+};
+
+type k = keyof WritableDraft<ToolState>;
 
 export interface ToolState {
   showTool: boolean;
@@ -38,77 +43,30 @@ const toolSlice = createSlice({
   name: "tool",
   initialState,
   reducers: {
-    showTool(state: ToolState) {
-      state.showTool = true;
-    },
-    setClick(state: ToolState, action: PayloadAction<boolean>) {
-      state.click = action.payload;
-    },
-    setFocus(state: ToolState, action: PayloadAction<boolean>) {
-      state.focus = action.payload;
-    },
-    setShowDownloadBtn(state: ToolState, action: PayloadAction<boolean>) {
-      state.showDownloadBtn = action.payload;
-    },
-    setPath(state: ToolState, action: PayloadAction<string>) {
-      state.path = action.payload;
-    },
-    hideTool(state: ToolState) {
-      state.showTool = false;
-    },
-    setErrorMessage(state: ToolState, action: PayloadAction<string>) {
-      state.errorMessage = action.payload;
-      state.showErrorMessage = true; // set the showErrorMessage property to true when an error message is set
-    },
     resetErrorMessage(state: ToolState) {
       state.errorMessage = "";
-      state.showErrorMessage = false; // reset the showErrorMessage property to false when the error message is reset
+      state.showErrorMessage = false;
       state.errorCode = null;
       state.isSubmitted = false;
     },
-    setCompressPdf(state: ToolState, action: PayloadAction<string | number>) {
-      state.compressPdf = action.payload;
-    },
-    setErrorCode(state: ToolState, action: PayloadAction<string | null>) {
-      state.errorCode = action.payload;
-    },
-    setIsSubmitted(state: ToolState, action: PayloadAction<boolean>) {
-      state.isSubmitted = action.payload;
-    },
-    setShowOptions(state: ToolState, action: PayloadAction<boolean>) {
-      state.showOptions = action.payload;
-    },
-    setNavHeight(state: ToolState, action: PayloadAction<number>) {
-      state.nav_height = action.payload;
-    },
-    setSelectedLanguages(
-      state: ToolState,
-      action: PayloadAction<{ value: string; label: string }[]>
-    ) {
-      state.selectedLanguages = action.payload;
-    },
-    setPageCount(state: ToolState, action: PayloadAction<number>) {
-      state.pageCount = action.payload;
+    setField(state, action: PayloadAction<Partial<ToolState>>) {
+      // Loop over all the keys in the action payload
+      Object.keys(action.payload).forEach((key) => {
+        // Cast the key to keyof ToolState to ensure it's a valid key
+        const typedKey = key as k;
+        const value = action.payload[typedKey];
+        if (value !== undefined) {
+          // @ts-ignore
+          state[typedKey] = value;
+        }
+      });
     },
   },
 });
 
 export const {
-  showTool,
-  hideTool,
-  setErrorMessage,
   resetErrorMessage,
-  setCompressPdf,
-  setErrorCode,
-  setIsSubmitted,
-  setPath,
-  setClick,
-  setFocus,
-  setShowDownloadBtn,
-  setShowOptions,
-  setNavHeight,
-  setSelectedLanguages,
-  setPageCount
+  setField
 } = toolSlice.actions;
 
 export default toolSlice.reducer;
