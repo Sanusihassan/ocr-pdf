@@ -11,6 +11,7 @@ import {
   downloadFile,
 } from "../../src/content/content-ar";
 import { OCRPDFHOWTO_ar } from "@/src/how-to";
+import { OpenGraph } from "pdfequips-open-graph/OpenGraph";
 
 export async function getStaticPaths() {
   const paths = Object.keys(routes).map((key) => ({
@@ -59,7 +60,16 @@ export default ({ item, lang }: { item: _tool["Ocr_PDF"]; lang: string }) => {
           }}
         />
         <meta name="description" content={item.description} />
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" type="image/svg+xml" href="/images/icons/logo.svg" />
+        <OpenGraph
+          ogUrl={`https://www.pdfequips.com/ar${item.to}`}
+          ogDescription={item.description}
+          ogLocale="ar_AR"
+          ogImageWidth="1200"
+          ogImageHeight="630"
+          ogTitle={item.seoTitle}
+          ogImage={`https://www.pdfequips.com/images/ar${item.to}.png`}
+        />
       </Head>
       <NavBar path="ocr-pdf" lang={lang} />
       <Tool
