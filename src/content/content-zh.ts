@@ -12,14 +12,29 @@ import type {
 export const tool: _tool = {
   Ocr_PDF: {
     title: "OCR PDF",
-    seoTitle: "在线 OCR PDF - 将 PDF 转换为可搜索的文本 | PDFEquips",
-    description:
-      "将静态 PDF 转换为具有精确文本识别和选择功能的交互式可搜索文档。",
+    seoTitle: "在线将PDF转换为可搜索文本",
+    description: "将静态PDF转换为互动的、可搜索的文档，具备精确的文本识别和选择能力。",
+    keywords: "OCR PDF, 将PDF转换为文本, 可搜索的PDF, PDF文本识别,在线OCR工具, 提取PDF文本",
     color: "#006266",
     type: ".pdf",
     to: "/ocr-pdf",
+    features: [
+      {
+        title: "高精度",
+        description: "享受高精度的文本识别，确保您的文档的完整性。"
+      },
+      {
+        title: "多语言支持",
+        description: "识别并转换多种语言的PDF文本。"
+      },
+      {
+        title: "用户友好界面",
+        description: "使用简单直观的界面轻松将您的PDF转换为可搜索的文本。"
+      }
+    ]
   },
 };
+
 
 export const downloadFile: _downloadFile = {
   titles: {
@@ -57,6 +72,13 @@ export const tools: _tools = {
   or_drop: "或将文件拖放到此处",
   files: "文件",
   drop_files: "在此处拖放文件",
+};
+
+export const footer: _footer = {
+  brand: "PDFEquips",
+  terms: "条款",
+  conditions: "条件",
+  privacy_policy: "隐私政策",
 };
 
 export const errors: _errors = {

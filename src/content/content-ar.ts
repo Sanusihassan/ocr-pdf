@@ -10,13 +10,27 @@ import type {
 
 export const tool: _tool = {
   Ocr_PDF: {
-    title: "تحويل PDF إلى نص قابل للبحث",
-    seoTitle: "OCR PDF عبر الإنترنت - تحويل PDF إلى نص قابل للبحث | PDFEquips",
-    description:
-      "تحويل ملفات PDF الثابتة إلى مستندات تفاعلية وقابلة للبحث بقدرات دقيقة للاعتراف بالنصوص وتحديدها.",
+    title: "تحويل PDF إلى نص",
+    seoTitle: "تحويل PDF إلى نص قابل للبحث عبر الإنترنت",
+    description: "حوّل ملفات PDF الثابتة إلى مستندات تفاعلية قابلة للبحث مع إمكانيات دقيقة للتعرف على النص واختياره.",
+    keywords: "تحويل PDF إلى نص, تحويل PDF إلى نص قابل للبحث, التعرف على النص في PDF, أداة OCR عبر الإنترنت, استخراج النص من PDF",
     color: "#006266",
     type: ".pdf",
     to: "/ocr-pdf",
+    features: [
+      {
+        title: "دقة عالية",
+        description: "استمتع بدقة عالية في التعرف على النصوص، مما يضمن سلامة مستنداتك."
+      },
+      {
+        title: "دعم متعدد اللغات",
+        description: "التعرف على النصوص وتحويلها من ملفات PDF بلغات متعددة."
+      },
+      {
+        title: "واجهة سهلة الاستخدام",
+        description: "حوّل ملفات PDF إلى نصوص قابلة للبحث بسهولة مع واجهة بسيطة وسهلة الاستخدام."
+      }
+    ]
   },
 };
 
@@ -61,6 +75,14 @@ export const edit_page: _edit_page = {
   pages: "صفحات",
   page: "صفحة واحدة",
 };
+
+export const footer: _footer = {
+  brand: "PDFEquips",
+  terms: "الشروط",
+  conditions: "والأحكام",
+  privacy_policy: "سياسة الخصوصية",
+};
+
 
 export const errors: _errors = {
   EMPTY_FILE: {

@@ -1,14 +1,29 @@
 export const tool = {
   Ocr_PDF: {
     title: "OCR PDF",
-    seoTitle: "OCR PDF Online - Convert PDF to Searchable Text | PDFEquips",
-    description:
-      "Transform static PDFs into interactive, searchable documents with precise text recognition and selection capabilities.",
+    seoTitle: "Convert PDF to Searchable Text Online",
+    description: "Transform static PDFs into interactive, searchable documents with precise text recognition and selection capabilities.",
+    keywords: "OCR PDF, convert PDF to text, searchable PDF, PDF text recognition, online OCR tool, extract text from PDF",
     color: "#006266",
     type: ".pdf",
     to: "/ocr-pdf",
+    features: [
+      {
+        title: "High Accuracy",
+        description: "Enjoy high accuracy in text recognition, ensuring the integrity of your documents."
+      },
+      {
+        title: "Multi-Language Support",
+        description: "Recognize and convert text from PDFs in multiple languages."
+      },
+      {
+        title: "User-Friendly Interface",
+        description: "Easily convert your PDFs to searchable text with an intuitive and straightforward interface."
+      }
+    ]
   },
 };
+
 /**
  * please translate these two objects to ar, es, fr, hi and zh respectivly
  * edit_page_titles: {
@@ -64,6 +79,13 @@ export const downloadFile = {
     "ocr-pdf": "Back To OCR PDF",
   },
 };
+
+export const footer = {
+  brand: "PDFEquips",
+  terms: "terms",
+  conditions: "conditions",
+  privacy_policy: "privacy policy",
+}
 
 export const errors = {
   EMPTY_FILE: {

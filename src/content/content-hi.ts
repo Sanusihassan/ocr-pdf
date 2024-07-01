@@ -12,14 +12,29 @@ import type {
 export const tool: _tool = {
   Ocr_PDF: {
     title: "OCR PDF",
-    seoTitle: "OCR PDF ऑनलाइन - PDF को खोजने योग्य पाठ में बदलें | PDFEquips",
-    description:
-      "स्टैटिक PDF को इंटरैक्टिव, खोजने योग्य दस्तावेज़ में बदलें, सटीक पाठ पहचान और चयन क्षमताओं के साथ।",
+    seoTitle: "ऑनलाइन PDF को खोजने योग्य टेक्स्ट में बदलें",
+    description: "स्थिर PDF को इंटरएक्टिव, खोजने योग्य दस्तावेज़ों में बदलें जिसमें सटीक टेक्स्ट पहचान और चयन क्षमताएँ हों।",
+    keywords: "OCR PDF, PDF को टेक्स्ट में बदलें, खोजने योग्य PDF, PDF टेक्स्ट पहचान, ऑनलाइन OCR टूल, PDF से टेक्स्ट निकालें",
     color: "#006266",
     type: ".pdf",
     to: "/ocr-pdf",
+    features: [
+      {
+        title: "उच्च सटीकता",
+        description: "टेक्स्ट पहचान में उच्च सटीकता का आनंद लें, जो आपके दस्तावेज़ों की अखंडता को सुनिश्चित करता है।"
+      },
+      {
+        title: "मल्टी-लैंग्वेज सपोर्ट",
+        description: "कई भाषाओं में PDF से टेक्स्ट पहचानें और बदलें।"
+      },
+      {
+        title: "उपयोगकर्ता-अनुकूल इंटरफेस",
+        description: "सरल और सहज इंटरफेस के साथ अपने PDF को खोजने योग्य टेक्स्ट में आसानी से बदलें।"
+      }
+    ]
   },
 };
+
 
 export const downloadFile: _downloadFile = {
   titles: {
@@ -61,6 +76,13 @@ export const tools: _tools = {
   or_drop: "या फ़ाइलें यहां छोड़ें",
   files: "फाइलें",
   drop_files: "फ़ाइलें यहाँ खींचें",
+};
+
+export const footer: _footer = {
+  brand: "PDFEquips",
+  terms: "शर्तें",
+  conditions: "उपयोग की शर्तें",
+  privacy_policy: "गोपनीयता नीति",
 };
 
 export const errors: _errors = {

@@ -12,12 +12,26 @@ import type {
 export const tool: _tool = {
   Ocr_PDF: {
     title: "OCR PDF",
-    seoTitle: "OCR PDF en línea - Convertir PDF a texto buscable | PDFEquips",
-    description:
-      "Transforma los PDF estáticos en documentos interactivos y buscables con capacidades precisas de reconocimiento y selección de texto.",
+    seoTitle: "Convertir PDF a Texto Buscable en Línea",
+    description: "Transforma archivos PDF estáticos en documentos interactivos y buscables con capacidades precisas de reconocimiento y selección de texto.",
+    keywords: "OCR PDF, convertir PDF a texto, PDF buscable, reconocimiento de texto en PDF, herramienta OCR en línea, extraer texto de PDF",
     color: "#006266",
     type: ".pdf",
     to: "/ocr-pdf",
+    features: [
+      {
+        title: "Alta Precisión",
+        description: "Disfruta de una alta precisión en el reconocimiento de texto, asegurando la integridad de tus documentos."
+      },
+      {
+        title: "Soporte Multilingüe",
+        description: "Reconoce y convierte texto de PDFs en múltiples idiomas."
+      },
+      {
+        title: "Interfaz Fácil de Usar",
+        description: "Convierte fácilmente tus PDFs a texto buscable con una interfaz intuitiva y sencilla."
+      }
+    ]
   },
 };
 
@@ -61,6 +75,13 @@ export const downloadFile: _downloadFile = {
   backto: {
     "ocr-pdf": "Volver a OCR PDF",
   },
+};
+
+export const footer: _footer = {
+  brand: "PDFEquips",
+  terms: "términos",
+  conditions: "condiciones",
+  privacy_policy: "política de privacidad",
 };
 
 export const errors: _errors = {
