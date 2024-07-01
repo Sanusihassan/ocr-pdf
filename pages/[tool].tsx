@@ -95,7 +95,7 @@ export default ({ item }: { item: _tool["Ocr_PDF"] }) => {
       <div className="container">
         <HowTo howTo={OCRPDFHOWTO} alt={item.seoTitle} imgSrc={item.to.replace("/", "")} />
       </div>
-      <Footer footer={footer} title={item.seoTitle.split("-")[1]} />
+      <Footer footer={footer} title={item.seoTitle} />
     </>
   );
 };
