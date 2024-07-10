@@ -166,7 +166,7 @@ footer {
 
 
     .copyright-row {
-      @include extend("col-8 d-flex p0 justify-content-between");
+      @include extend("col-12 col-md-8 d-flex p0 justify-content-between");
 
       >* {
         @include extend("m0 p0");
