@@ -35,7 +35,7 @@ const HowTo = ({
             />
             <img
               src={`/pdfequips.png`}
-              className="img-fluid"
+              className="img-fluid m-auto"
               alt={alt}
               title={alt}
             />
