@@ -2,26 +2,26 @@ import type { edit_page as _edit_page, tool as _tool, tools as _tools, downloadF
 import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
-  Rotate_PDF: {
-    title: "Rotar PDF",
-    seoTitle: "Rotar Páginas PDF en Línea - Fácil Rotación de PDF",
-    description: "Gira fácilmente las páginas de tus documentos PDF para lograr la orientación óptima.",
-    keywords: "rotar PDF, rotación de páginas PDF, rotar PDF en línea, ajustar orientación de PDF, rotar páginas en PDF",
-    color: "#10ac84",
+  Ocr_PDF: {
+    title: "OCR PDF",
+    seoTitle: "Convertir PDF a Texto Buscable en Línea",
+    description: "Transforma archivos PDF estáticos en documentos interactivos y buscables con capacidades precisas de reconocimiento y selección de texto.",
+    keywords: "OCR PDF, convertir PDF a texto, PDF buscable, reconocimiento de texto en PDF, herramienta OCR en línea, extraer texto de PDF",
+    color: "#006266",
     type: ".pdf",
-    to: "/rotate-pdf",
+    to: "/ocr-pdf",
     features: [
       {
-        title: "Rotación de Páginas Simple",
-        description: "Gira fácilmente las páginas de PDF a la orientación deseada con solo unos pocos clics."
+        title: "Alta Precisión",
+        description: "Disfruta de una alta precisión en el reconocimiento de texto, asegurando la integridad de tus documentos."
       },
       {
-        title: "Rotación en Lote",
-        description: "Gira múltiples páginas a la vez para ajustes eficientes de documentos."
+        title: "Soporte Multilingüe",
+        description: "Reconoce y convierte texto de PDFs en múltiples idiomas."
       },
       {
-        title: "Seguro y Privado",
-        description: "Tus archivos se procesan de manera segura y se eliminan poco después de la procesamiento."
+        title: "Interfaz Fácil de Usar",
+        description: "Convierte fácilmente tus PDFs a texto buscable con una interfaz intuitiva y sencilla."
       }
     ]
   }
@@ -29,23 +29,20 @@ export const tool: _tool = {
 
 export const edit_page: _edit_page = {
   edit_page_titles: {
-    rotate_pdf: "Opciones para Rotar PDF"
+    ocr_pdf: "Opciones de OCR para PDF"
   },
-  loader_text: "Por favor, espera...",
-  add_more_button: "Agregar más archivos",
+  loader_text: "Por favor espera...",
+  add_more_button: "Agrega más archivos",
   action_buttons: {
-    rotate_pdf: "Rotar PDF"
+    ocr_pdf: "OCR de PDF"
   },
-  pages: "páginas",
+  ocr_options: {
+    info: "Elegir los idiomas correctos en el documento aumenta significativamente la precisión del reconocimiento de texto.",
+    document_languages: "Idiomas del documento",
+    input_placeholder: "Seleccionar idiomas"
+  },
+  pages: "paginas",
   page: "página",
-  rotate_pdf_options: {
-    info1: "Pasa el cursor sobre el archivo PDF para revelar",
-    info2: "iconos. Haz clic en cualquiera de los iconos para rotar tus PDFs.",
-    left: "Izquierda",
-    right: "Derecha",
-    rotation: "Rotación",
-    reset_all: "Restablecer Todo"
-  },
   filenameOptions: {
     label: "Nombre del archivo de salida (opcional)",
     placeholder: "Ingrese el nombre del archivo",
@@ -56,29 +53,26 @@ export const edit_page: _edit_page = {
       cta: "Actualizar ahora",
     },
   },
-  actionContent: {
-    current: "Actual",
-    info: "Positivo = en sentido horario, Negativo = en sentido antihorario",
-  }
 };
 
 export const downloadFile: _downloadFile = {
   titles: {
-    "rotate-pdf": [
-      "¡Los archivos PDF han sido rotados!",
-      "¡El archivo PDF ha sido rotado!"
+    "ocr-pdf": [
+      "¡Tu PDF ahora es seleccionable y searchable!",
+      "¡El texto ahora es seleccionable y searchable en tu PDF!"
     ]
   },
   btnText: {
-    "rotate-pdf": [
-      "Descargar archivos PDF rotados",
-      "Descargar archivo PDF rotado"
+    "ocr-pdf": [
+      "Descargar PDF",
+      "Descargar PDFs"
     ]
   },
   backto: {
-    "rotate-pdf": "Volver a Rotar PDF"
+    "ocr-pdf": "Volver a OCR PDF"
   }
 };
+
 
 export const tools: _tools = {
   select: "Seleccionar",

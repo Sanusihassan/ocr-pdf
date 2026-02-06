@@ -1,24 +1,24 @@
 export const tool = {
-  Rotate_PDF: {
-    title: "Rotate PDF",
-    seoTitle: "Rotate PDF Pages Online - Easy PDF Page Rotation",
-    description: "Easily rotate pages within your PDF documents to achieve optimal orientation.",
-    keywords: "rotate PDF, PDF page rotation, rotate PDF online, adjust PDF orientation, rotate pages in PDF",
-    color: "#10ac84",
+  Ocr_PDF: {
+    title: "OCR PDF",
+    seoTitle: "Convert PDF to Searchable Text Online",
+    description: "Transform static PDFs into interactive, searchable documents with precise text recognition and selection capabilities.",
+    keywords: "OCR PDF, convert PDF to text, searchable PDF, PDF text recognition, online OCR tool, extract text from PDF",
+    color: "#006266",
     type: ".pdf",
-    to: "/rotate-pdf",
+    to: "/ocr-pdf",
     features: [
       {
-        title: "Simple Page Rotation",
-        description: "Easily rotate PDF pages to the desired orientation with just a few clicks."
+        title: "High Accuracy",
+        description: "Enjoy high accuracy in text recognition, ensuring the integrity of your documents."
       },
       {
-        title: "Batch Rotation",
-        description: "Rotate multiple pages at once for efficient document adjustments."
+        title: "Multi-Language Support",
+        description: "Recognize and convert text from PDFs in multiple languages."
       },
       {
-        title: "Secure and Private",
-        description: "Your files are processed securely and are deleted shortly after processing."
+        title: "User-Friendly Interface",
+        description: "Easily convert your PDFs to searchable text with an intuitive and straightforward interface."
       }
     ]
   }
@@ -26,22 +26,19 @@ export const tool = {
 
 export const edit_page = {
   edit_page_titles: {
-    rotate_pdf: "Rotate PDF options"
+    ocr_pdf: "Ocr PDF options"
   },
   loader_text: "please wait...",
   add_more_button: "Add more files",
   action_buttons: {
-    rotate_pdf: "Rotate PDF"
+    ocr_pdf: "Ocr PDF"
   },
   pages: "pages",
   page: "page",
-  rotate_pdf_options: {
-    info1: "Hover over the PDF file to reveal a",
-    info2: "icons. Click any of the icons to rotate your PDFs.",
-    left: "Left",
-    right: "Right",
-    rotation: "Rotation",
-    reset_all: "Reset All"
+  ocr_options: {
+    info: "Choosing the correct document languages significantly boosts the accuracy of text recognition.",
+    document_languages: "Document Languages",
+    input_placeholder: "Select Languages"
   },
   filenameOptions: {
     label: "Output File Name (Optional)",
@@ -53,29 +50,26 @@ export const edit_page = {
       cta: "Upgrade now",
     },
   },
-  actionContent: {
-    current: "Current",
-    info: "Positive = clockwise, Negative = counter-clockwise",
-  }
 };
 
 export const downloadFile = {
   titles: {
-    "rotate-pdf": [
-      "PDF files have been rotated!",
-      "PDF file has been rotated!"
+    "ocr-pdf": [
+      "Your PDF is now selectable and searchable!",
+      "Your PDF files are now selectable and searchable!"
     ]
   },
   btnText: {
-    "rotate-pdf": [
-      "Download Rotated PDF files",
-      "Download Rotated PDF file"
+    "ocr-pdf": [
+      "Download PDF",
+      "Download files"
     ]
   },
   backto: {
-    "rotate-pdf": "Back To Rotate PDF"
+    "ocr-pdf": "Back To OCR PDF"
   }
 };
+
 export type ToolType = {
   title: string;
   seoTitle: string;
@@ -89,7 +83,7 @@ export type ToolType = {
     description: string;
   }[];
 }
-export type Paths = "rotate-pdf";
+export type Paths = "ocr-pdf";
 
 export const tools = {
   select: "Select",

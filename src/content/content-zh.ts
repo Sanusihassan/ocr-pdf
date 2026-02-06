@@ -2,26 +2,26 @@ import type { edit_page as _edit_page, tool as _tool, tools as _tools, downloadF
 import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
-    Rotate_PDF: {
-        title: "旋转 PDF",
-        seoTitle: "在线旋转 PDF 页 - 简单的 PDF 页旋转",
-        description: "轻松旋转 PDF 文档中的页面，以达到最佳方向。",
-        keywords: "旋转 PDF, PDF 页面旋转, 在线旋转 PDF, 调整 PDF 方向, 旋转 PDF 页",
-        color: "#10ac84",
+    Ocr_PDF: {
+        title: "OCR PDF",
+        seoTitle: "在线将PDF转换为可搜索文本",
+        description: "将静态PDF转换为互动的、可搜索的文档，具备精确的文本识别和选择能力。",
+        keywords: "OCR PDF, 将PDF转换为文本, 可搜索的PDF, PDF文本识别,在线OCR工具, 提取PDF文本",
+        color: "#006266",
         type: ".pdf",
-        to: "/rotate-pdf",
+        to: "/ocr-pdf",
         features: [
             {
-                title: "简单的页面旋转",
-                description: "只需几次点击即可轻松将 PDF 页面旋转到所需方向。"
+                title: "高精度",
+                description: "享受高精度的文本识别，确保您的文档的完整性。"
             },
             {
-                title: "批量旋转",
-                description: "一次旋转多个页面，实现高效的文档调整。"
+                title: "多语言支持",
+                description: "识别并转换多种语言的PDF文本。"
             },
             {
-                title: "安全且私密",
-                description: "您的文件会被安全处理，并在处理后不久被删除。"
+                title: "用户友好界面",
+                description: "使用简单直观的界面轻松将您的PDF转换为可搜索的文本。"
             }
         ]
     }
@@ -29,23 +29,20 @@ export const tool: _tool = {
 
 export const edit_page: _edit_page = {
     edit_page_titles: {
-        rotate_pdf: "旋转PDF选项"
+        ocr_pdf: "OCR PDF 选项"
     },
-    loader_text: "请稍候...",
+    loader_text: "请稍等...",
     add_more_button: "添加更多文件",
     action_buttons: {
-        rotate_pdf: "旋转PDF"
+        ocr_pdf: "OCR PDF"
+    },
+    ocr_options: {
+        info: "选择正确的文档语言可以显著提高文本识别的准确性。",
+        document_languages: "文档语言",
+        input_placeholder: "选择语言"
     },
     pages: "页",
     page: "页",
-    rotate_pdf_options: {
-        info1: "将鼠标悬停在 PDF 文件上以显示",
-        info2: "图标。单击任何图标以旋转您的 PDFs。",
-        left: "左",
-        right: "右",
-        rotation: "旋转",
-        reset_all: "重置所有"
-    },
     filenameOptions: {
         label: "输出文件名（可选）",
         placeholder: "输入文件名",
@@ -56,27 +53,23 @@ export const edit_page: _edit_page = {
             cta: "立即升级",
         },
     },
-    actionContent: {
-        current: "当前",
-        info: "正 = 顺时针，负 = 逆时针",
-    }
 };
 
 export const downloadFile: _downloadFile = {
     titles: {
-        "rotate-pdf": [
-            "PDF文件已旋转！",
-            "PDF文件已旋转！"
+        "ocr-pdf": [
+            "您的PDF现在可选择和搜索！",
+            "您的PDF文件现在可选择和搜索！"
         ]
     },
     btnText: {
-        "rotate-pdf": [
-            "下载旋转后的PDF文件",
-            "下载旋转后的PDF文件"
+        "ocr-pdf": [
+            "下载PDF",
+            "下载文件"
         ]
     },
     backto: {
-        "rotate-pdf": "返回旋转PDF"
+        "ocr-pdf": "返回OCR PDF"
     }
 };
 

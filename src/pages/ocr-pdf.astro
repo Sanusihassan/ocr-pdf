@@ -6,15 +6,15 @@ import {
   edit_page,
   downloadFile,
   adBlockerContent,
-} from "../../content/content-hi";
+} from "../content/content";
 
-import { howToSchema_hi } from "../../how-to";
-import BaseLayout from "../../partials/BaseLayout.astro";
-import { ToolWrapper } from "../../../components/ToolWrapper";
+import { OCRPDFHOWTO } from "../how-to";
+import BaseLayout from "../partials/BaseLayout.astro";
+import { ToolWrapper } from "../../components/ToolWrapper";
 
-const item = tool["Rotate_PDF"];
-const currentRoute = "/rotate-pdf";
-const lang = "hi";
+const item = tool["Ocr_PDF"];
+const currentRoute = "/ocr-pdf";
+const lang = "en";
 
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -69,7 +69,7 @@ const seoConfig = {
     <script
       type="application/ld+json"
       is:inline
-      set:html={JSON.stringify(howToSchema_hi)}
+      set:html={JSON.stringify(OCRPDFHOWTO)}
     />
   </Fragment>
 
@@ -84,7 +84,7 @@ const seoConfig = {
     page={edit_page.page}
     downloadFile={downloadFile}
     features={item.features}
-    howTo={howToSchema_hi}
+    howTo={OCRPDFHOWTO}
     seoTitle={item.title}
     to={currentRoute}
     adBlockerContent={adBlockerContent}

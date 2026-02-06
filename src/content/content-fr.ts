@@ -2,26 +2,26 @@ import type { adBlockerContentType } from "./content";
 import type { edit_page as _edit_page, tool as _tool, tools as _tools, downloadFile as _downloadFile, errors as _ } from "../content";
 
 export const tool: _tool = {
-    Rotate_PDF: {
-        title: "Faire Pivoter PDF",
-        seoTitle: "Pivoter Pages PDF en Ligne - Rotation Facile de PDF",
-        description: "Faites pivoter facilement les pages de vos documents PDF pour obtenir l'orientation optimale.",
-        keywords: "pivoter PDF, rotation de pages PDF, pivoter PDF en ligne, ajuster l'orientation PDF, pivoter les pages de PDF",
-        color: "#10ac84",
+    Ocr_PDF: {
+        title: "OCR PDF",
+        seoTitle: "Convertir PDF en Texte Recherchable en Ligne",
+        description: "Transformez des PDF statiques en documents interactifs et recherchables avec des capacités précises de reconnaissance et de sélection de texte.",
+        keywords: "OCR PDF, convertir PDF en texte, PDF recherchable, reconnaissance de texte PDF, outil OCR en ligne, extraire le texte du PDF",
+        color: "#006266",
         type: ".pdf",
-        to: "/rotate-pdf",
+        to: "/ocr-pdf",
         features: [
             {
-                title: "Rotation Simple des Pages",
-                description: "Faites pivoter facilement les pages PDF à l'orientation souhaitée en quelques clics."
+                title: "Haute Précision",
+                description: "Profitez d'une haute précision dans la reconnaissance de texte, garantissant l'intégrité de vos documents."
             },
             {
-                title: "Rotation par Lots",
-                description: "Faites pivoter plusieurs pages à la fois pour des ajustements de documents efficaces."
+                title: "Support Multilingue",
+                description: "Reconnaît et convertit le texte des PDF en plusieurs langues."
             },
             {
-                title: "Sûr et Privé",
-                description: "Vos fichiers sont traités en toute sécurité et sont supprimés peu de temps après le traitement."
+                title: "Interface Conviviale",
+                description: "Convertissez facilement vos PDFs en texte recherchable avec une interface intuitive et simple."
             }
         ]
     }
@@ -29,23 +29,20 @@ export const tool: _tool = {
 
 export const edit_page: _edit_page = {
     edit_page_titles: {
-        rotate_pdf: "Options de rotation de PDF"
+        ocr_pdf: "Options de reconnaissance de texte pour les PDF"
     },
     loader_text: "Veuillez patienter...",
     add_more_button: "Ajouter plus de fichiers",
     action_buttons: {
-        rotate_pdf: "Rotation du PDF"
+        ocr_pdf: "Reconnaissance PDF"
+    },
+    ocr_options: {
+        info: "Choisir les bonnes langues dans le document améliore considérablement la précision de la reconnaissance de texte.",
+        document_languages: "Langues du document",
+        input_placeholder: "Sélectionner des langues"
     },
     pages: "pages",
     page: "page",
-    rotate_pdf_options: {
-        info1: "Survolez le fichier PDF pour révéler des",
-        info2: "icônes. Cliquez sur n'importe laquelle des icônes pour faire pivoter vos PDFs.",
-        left: "Gauche",
-        right: "Droite",
-        rotation: "Rotation",
-        reset_all: "Réinitialiser Tout"
-    },
     filenameOptions: {
         label: "Nom du fichier de sortie (facultatif)",
         placeholder: "Entrez le nom du fichier",
@@ -56,29 +53,26 @@ export const edit_page: _edit_page = {
             cta: "Mettre à niveau maintenant",
         },
     },
-    actionContent: {
-        current: "Actuel",
-        info: "Positif = sens horaire, Négatif = sens antihoraire",
-    }
 };
 
 export const downloadFile: _downloadFile = {
     titles: {
-        "rotate-pdf": [
-            "Les fichiers PDF ont été tournés !",
-            "Le fichier PDF a été tourné !"
+        "ocr-pdf": [
+            "Votre PDF est maintenant sélectionnable et recherchable !",
+            "Le texte est maintenant sélectionnable et recherchable dans votre PDF !"
         ]
     },
     btnText: {
-        "rotate-pdf": [
-            "Télécharger les fichiers PDF tournés",
-            "Télécharger le fichier PDF tourné"
+        "ocr-pdf": [
+            "Télécharger PDF",
+            "Télécharger des fichiers"
         ]
     },
     backto: {
-        "rotate-pdf": "Retour à la rotation du PDF"
+        "ocr-pdf": "Retour à OCR PDF"
     }
 };
+
 
 // French (fr) - tools
 export const tools: _tools = {

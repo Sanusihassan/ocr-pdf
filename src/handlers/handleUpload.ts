@@ -1,4 +1,4 @@
-// now i want to fix the rotate-pdf api, this is the front-end i.e what i'm sending from the client:
+// now i want to fix the ocr-pdf api, this is the front-end i.e what i'm sending from the client:
 import axios from "axios";
 import { downloadConvertedFile } from "../downloadFile";
 import type { errors as _ } from "../content";

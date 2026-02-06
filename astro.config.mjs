@@ -17,5 +17,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [react()],
-  base: isProd ? "/rotate-pdf" : "/",
+  base: isProd ? "/ocr-pdf" : "/",
 });

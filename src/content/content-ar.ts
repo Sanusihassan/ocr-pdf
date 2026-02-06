@@ -2,26 +2,26 @@ import type { tool as _tool, tools as _tools, edit_page as _edit_page, downloadF
 import type { adBlockerContentType } from "./content";
 
 export const tool: _tool = {
-    Rotate_PDF: {
-        title: "تدوير PDF",
-        seoTitle: "تدوير صفحات PDF عبر الإنترنت - تدوير صفحات PDF بسهولة",
-        description: "قم بتدوير صفحات مستندات PDF الخاصة بك بسهولة لتحقيق الاتجاه الأمثل.",
-        keywords: "تدوير PDF, تدوير صفحات PDF, تدوير PDF عبر الإنترنت, ضبط اتجاه PDF, تدوير صفحات PDF بسهولة",
-        color: "#10ac84",
+    Ocr_PDF: {
+        title: "تحويل PDF إلى نص",
+        seoTitle: "تحويل PDF إلى نص قابل للبحث عبر الإنترنت",
+        description: "حوّل ملفات PDF الثابتة إلى مستندات تفاعلية قابلة للبحث مع إمكانيات دقيقة للتعرف على النص واختياره.",
+        keywords: "تحويل PDF إلى نص, تحويل PDF إلى نص قابل للبحث, التعرف على النص في PDF, أداة OCR عبر الإنترنت, استخراج النص من PDF",
+        color: "#006266",
         type: ".pdf",
-        to: "/rotate-pdf",
+        to: "/ocr-pdf",
         features: [
             {
-                title: "تدوير الصفحات بسهولة",
-                description: "قم بتدوير صفحات PDF بسهولة إلى الاتجاه المطلوب ببضع نقرات فقط."
+                title: "دقة عالية",
+                description: "استمتع بدقة عالية في التعرف على النصوص، مما يضمن سلامة مستنداتك."
             },
             {
-                title: "تدوير الدفعات",
-                description: "قم بتدوير صفحات متعددة في وقت واحد لتعديلات المستند الفعالة."
+                title: "دعم متعدد اللغات",
+                description: "التعرف على النصوص وتحويلها من ملفات PDF بلغات متعددة."
             },
             {
-                title: "آمن وخاص",
-                description: "يتم معالجة ملفاتك بأمان ويتم حذفها بعد وقت قصير من المعالجة."
+                title: "واجهة سهلة الاستخدام",
+                description: "حوّل ملفات PDF إلى نصوص قابلة للبحث بسهولة مع واجهة بسيطة وسهلة الاستخدام."
             }
         ]
     }
@@ -29,23 +29,20 @@ export const tool: _tool = {
 
 export const edit_page: _edit_page = {
     edit_page_titles: {
-        rotate_pdf: "خيارات تدوير ملف PDF"
+        ocr_pdf: "خيارات تحويل PDF إلى نص قابل للبحث"
     },
     loader_text: "يرجى الانتظار...",
     add_more_button: "إضافة المزيد من الملفات",
     action_buttons: {
-        rotate_pdf: "تدوير ملف PDF"
+        ocr_pdf: "تحويل PDF"
+    },
+    ocr_options: {
+        info: "اختيار اللغات الصحيحة في الوثيقة يعزز بشكل كبير دقة التعرف على النص.",
+        document_languages: "لغات الوثيقة",
+        input_placeholder: "اختر اللغات"
     },
     pages: "صفحات",
     page: "صفحة واحدة",
-    rotate_pdf_options: {
-        info1: "حرك الماوس فوق ملف PDF لكشف",
-        info2: "الأيقونات. انقر على أي من الأيقونات لتدوير ملفات PDF الخاصة بك.",
-        rotation: "التدوير",
-        left: "يسار",
-        right: "يمين",
-        reset_all: "إعادة تعيين الكل"
-    },
     filenameOptions: {
         label: "اسم الملف الناتج (اختياري)",
         placeholder: "أدخل اسم الملف",
@@ -56,27 +53,23 @@ export const edit_page: _edit_page = {
             cta: "الترقية الآن",
         },
     },
-    actionContent: {
-        current: "الحالي",
-        info: "إيجابي = في اتجاه عقارب الساعة، سلبي = عكس اتجاه عقارب الساعة",
-    }
 };
 
 export const downloadFile: _downloadFile = {
     titles: {
-        "rotate-pdf": [
-            "تم تدوير ملفات PDF!",
-            "تم تدوير ملف PDF!"
+        "ocr-pdf": [
+            "تم إجراء البحث والتحديد في ملف PDF الخاص بك الآن!",
+            "تم إجراء البحث والتحديد في ملفات PDF الخاصة بك الآن!"
         ]
     },
     btnText: {
-        "rotate-pdf": [
-            "تنزيل ملفات PDF المدوّرة",
-            "تنزيل ملف PDF المدوّر"
+        "ocr-pdf": [
+            "تحميل PDF",
+            "تحميل الملفات"
         ]
     },
     backto: {
-        "rotate-pdf": "العودة إلى تدوير ملف PDF"
+        "ocr-pdf": "العودة إلى PDF المُحدَّد بتقنية OCR"
     }
 };
 

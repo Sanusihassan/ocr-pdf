@@ -1,27 +1,28 @@
 import type { adBlockerContentType } from "./content";
 import type { edit_page as _edit_page, tool as _tool, tools as _tools, downloadFile as _downloadFile, errors as _ } from "../content";
 
+
 export const tool: _tool = {
-    Rotate_PDF: {
-        title: "पीडीएफ घुमाएँ",
-        seoTitle: "पीडीएफ पृष्ठ ऑनलाइन घुमाएँ - आसान पीडीएफ पृष्ठ रोटेशन",
-        description: "अपने पीडीएफ दस्तावेज़ों के पृष्ठों को आसानी से घुमाएँ और इष्टतम अभिविन्यास प्राप्त करें।",
-        keywords: "पीडीएफ घुमाएँ, पीडीएफ पृष्ठ घुमाएँ, ऑनलाइन पीडीएफ घुमाएँ, पीडीएफ अभिविन्यास समायोजित करें, पीडीएफ में पृष्ठ घुमाएँ",
-        color: "#10ac84",
+    Ocr_PDF: {
+        title: "OCR PDF",
+        seoTitle: "ऑनलाइन PDF को खोजने योग्य टेक्स्ट में बदलें",
+        description: "स्थिर PDF को इंटरएक्टिव, खोजने योग्य दस्तावेज़ों में बदलें जिसमें सटीक टेक्स्ट पहचान और चयन क्षमताएँ हों।",
+        keywords: "OCR PDF, PDF को टेक्स्ट में बदलें, खोजने योग्य PDF, PDF टेक्स्ट पहचान, ऑनलाइन OCR टूल, PDF से टेक्स्ट निकालें",
+        color: "#006266",
         type: ".pdf",
-        to: "/rotate-pdf",
+        to: "/ocr-pdf",
         features: [
             {
-                title: "सरल पृष्ठ घुमाव",
-                description: "कुछ ही क्लिक में पीडीएफ पृष्ठों को वांछित अभिविन्यास में आसानी से घुमाएँ।"
+                title: "उच्च सटीकता",
+                description: "टेक्स्ट पहचान में उच्च सटीकता का आनंद लें, जो आपके दस्तावेज़ों की अखंडता को सुनिश्चित करता है।"
             },
             {
-                title: "बैच रोटेशन",
-                description: "कुशल दस्तावेज़ समायोजन के लिए एक बार में कई पृष्ठों को घुमाएँ।"
+                title: "मल्टी-लैंग्वेज सपोर्ट",
+                description: "कई भाषाओं में PDF से टेक्स्ट पहचानें और बदलें।"
             },
             {
-                title: "सुरक्षित और निजी",
-                description: "आपकी फाइलें सुरक्षित रूप से प्रोसेस की जाती हैं और प्रोसेसिंग के थोड़े समय बाद हटा दी जाती हैं।"
+                title: "उपयोगकर्ता-अनुकूल इंटरफेस",
+                description: "सरल और सहज इंटरफेस के साथ अपने PDF को खोजने योग्य टेक्स्ट में आसानी से बदलें।"
             }
         ]
     }
@@ -29,23 +30,20 @@ export const tool: _tool = {
 
 export const edit_page: _edit_page = {
     edit_page_titles: {
-        rotate_pdf: "पीडीएफ विकल्प घुमाएं"
+        ocr_pdf: "OCR PDF विकल्प"
     },
     loader_text: "कृपया प्रतीक्षा करें...",
-    add_more_button: "और फ़ाइलें जोड़ें",
+    add_more_button: "अधिक फ़ाइलें जोड़ें",
     action_buttons: {
-        rotate_pdf: "पीडीएफ घुमाएं"
+        ocr_pdf: "OCR PDF"
     },
-    pages: "पृष्ठ",
+    ocr_options: {
+        info: "दस्तावेज़ में सही भाषाएं चुनने से पाठ पहचान की सटीकता को काफी बढ़ाया जा सकता है।",
+        document_languages: "दस्तावेज़ की भाषाएँ",
+        input_placeholder: "भाषाएँ चुनें"
+    },
+    pages: "पृष्ठों",
     page: "पृष्ठ",
-    rotate_pdf_options: {
-        info1: "PDF फ़ाइल पर होवर करें ताकि प्रकट हो",
-        info2: "आइकन। अपनी PDFs को घुमाने के लिए किसी भी आइकन पर क्लिक करें।",
-        left: "बाएं",
-        right: "दाएं",
-        rotation: "घुमाना",
-        reset_all: "सभी को रीसेट करें"
-    },
     filenameOptions: {
         label: "आउटपुट फ़ाइल का नाम (वैकल्पिक)",
         placeholder: "फ़ाइल का नाम दर्ज करें",
@@ -56,27 +54,23 @@ export const edit_page: _edit_page = {
             cta: "अभी अपग्रेड करें",
         },
     },
-    actionContent: {
-        current: "वर्तमान",
-        info: "सकारात्मक = दक्षिणावर्त, नकारात्मक = वामावर्त",
-    }
 };
 
 export const downloadFile: _downloadFile = {
     titles: {
-        "rotate-pdf": [
-            "PDF फ़ाइलें घुमा दी गई हैं!",
-            "PDF फ़ाइल को घुमा दिया गया है!"
+        "ocr-pdf": [
+            "आपका पीडीएफ अब चयन किया जा सकता है और खोजा जा सकता है!",
+            "आपके पीडीएफ फ़ाइल अब चयन किया जा सकता है और खोजा जा सकता है!"
         ]
     },
     btnText: {
-        "rotate-pdf": [
-            "घुमाए गए PDF फ़ाइलें डाउनलोड करें",
-            "घुमाए गए PDF फ़ाइल डाउनलोड करें"
+        "ocr-pdf": [
+            "पीडीएफ डाउनलोड करें",
+            "फ़ाइलें डाउनलोड करें"
         ]
     },
     backto: {
-        "rotate-pdf": "पीडीएफ घुमाने पर वापस जाएं"
+        "ocr-pdf": "OCR पीडीएफ पर वापस जाएं"
     }
 };
 

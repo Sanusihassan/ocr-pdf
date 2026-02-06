@@ -1,7 +1,78 @@
-copy styles & functionalities.
+# copy these & fix the schema issues:
+const en = {
+  filenameOptions: {
+    label: "Output File Name (Optional)",
+    placeholder: "Enter file name",
+    helperText: "This will be the name of the compressed PDF when downloaded.",
+    cta: "View Plans",
+    upgradeNotice: {
+      msg: "Levels from 2.0 to 10.0 are available with premium.",
+      cta: "Upgrade now",
+    },
+  },
+};
 
-fix error element not showing on filesNotPasswordProtected.
+const ar = {
+  filenameOptions: {
+    label: "اسم الملف الناتج (اختياري)",
+    placeholder: "أدخل اسم الملف",
+    helperText: "سيكون هذا هو اسم ملف PDF المضغوط عند تنزيله.",
+    cta: "عرض الخطط",
+    upgradeNotice: {
+      msg: "المستويات من 2.0 إلى 10.0 متاحة مع الخطة المميزة.",
+      cta: "الترقية الآن",
+    },
+  },
+};
 
-integrate api.
+const es = {
+  filenameOptions: {
+    label: "Nombre del archivo de salida (opcional)",
+    placeholder: "Ingrese el nombre del archivo",
+    helperText: "Este será el nombre del PDF comprimido al descargarlo.",
+    cta: "Ver planes",
+    upgradeNotice: {
+      msg: "Los niveles del 2.0 al 10.0 están disponibles con la versión premium.",
+      cta: "Actualizar ahora",
+    },
+  },
+};
 
-still.
+const fr = {
+  filenameOptions: {
+    label: "Nom du fichier de sortie (facultatif)",
+    placeholder: "Entrez le nom du fichier",
+    helperText: "Ce sera le nom du PDF compressé lors du téléchargement.",
+    cta: "Voir les forfaits",
+    upgradeNotice: {
+      msg: "Les niveaux de 2.0 à 10.0 sont disponibles avec la version premium.",
+      cta: "Mettre à niveau maintenant",
+    },
+  },
+};
+
+const hi = {
+  filenameOptions: {
+    label: "आउटपुट फ़ाइल का नाम (वैकल्पिक)",
+    placeholder: "फ़ाइल का नाम दर्ज करें",
+    helperText: "डाउनलोड करते समय यह संकुचित PDF का नाम होगा।",
+    cta: "योजनाएँ देखें",
+    upgradeNotice: {
+      msg: "2.0 से 10.0 तक के स्तर प्रीमियम में उपलब्ध हैं।",
+      cta: "अभी अपग्रेड करें",
+    },
+  },
+};
+
+const zh = {
+  filenameOptions: {
+    label: "输出文件名（可选）",
+    placeholder: "输入文件名",
+    helperText: "这将是下载时压缩 PDF 的名称。",
+    cta: "查看方案",
+    upgradeNotice: {
+      msg: "2.0 到 10.0 的级别可在高级版中使用。",
+      cta: "立即升级",
+    },
+  },
+};
