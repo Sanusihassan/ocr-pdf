@@ -50,6 +50,17 @@ export const edit_page = {
       cta: "Upgrade now",
     },
   },
+  languageSelectContent: {
+    placeholder: "Choose languages (maximum 3)",
+    warning: "This document is scanned. Please select its language to ensure accurate results.",
+    ocr_warning: "Scanned document detected. For best results, use our OCR PDF tool with advanced language detection and higher accuracy. You can also set the language here for basic processing.",
+  },
+  converter: {
+    free: "Basic",
+    premium: "Premium",
+    freeToolTip: "Basic OCR - simple text extraction",
+    premiumToolTip: "High-accuracy OCR with formatting preservation"
+  },
 };
 
 export const downloadFile = {
@@ -201,10 +212,15 @@ export const errors = {
     // Settings errors
     invalidSettings: "Invalid settings provided. Please refresh and try again.",
     conversionFailed: "Conversion failed. Please try again.",
-    // please do the same for these:
-    noRotationsProvided: "Please specify rotation for at least one file",
-    rotationFailed: "Failed to rotate PDF. Please try again.",
-    invalidRotationAngle: "Invalid rotation angle. Use 90, 180, or 270 degrees."
+    noLanguagesSelected: "Please select at least one language for OCR",
+    invalidLanguagesFormat: "Invalid language selection format",
+    noLanguagesForFile: "Please select language(s) for all files",
+    unsupportedLanguage: "One or more selected languages are not supported",
+    tooManyLanguages: "Maximum 3 languages allowed per file",
+    ocrFailed: "OCR processing failed. Please try again.",
+    ocrNoTextDetected: "No text could be detected in the document",
+    pdfAlreadySearchable: "PDF already contains searchable text",
+    freeTierLimitExceeded: "Free tier limit exceeded. Please upgrade to premium.",
   },
 };
 

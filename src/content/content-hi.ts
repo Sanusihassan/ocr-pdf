@@ -54,6 +54,17 @@ export const edit_page: _edit_page = {
             cta: "अभी अपग्रेड करें",
         },
     },
+    languageSelectContent: {
+        placeholder: "भाषाएं चुनें (अधिकतम 3)",
+        warning: "यह दस्तावेज़ स्कैन किया गया है। सटीक परिणामों के लिए कृपया इसकी भाषा चुनें।",
+        ocr_warning: "स्कैन किया गया दस्तावेज़ पाया गया। सर्वोत्तम परिणामों के लिए, उन्नत भाषा पहचान और उच्च सटीकता के साथ हमारे OCR PDF टूल का उपयोग करें। आप बुनियादी प्रोसेसिंग के लिए यहां भाषा भी सेट कर सकते हैं।",
+    },
+    converter: {
+        free: "बेसिक",
+        premium: "प्रीमियम",
+        freeToolTip: "बेसिक OCR - सरल टेक्स्ट निष्कर्षण",
+        premiumToolTip: "उच्च-सटीकता OCR फ़ॉर्मेटिंग संरक्षण के साथ"
+    },
 };
 
 export const downloadFile: _downloadFile = {
@@ -192,9 +203,15 @@ export const errors: _ = {
         // Settings errors
         invalidSettings: "अमान्य सेटिंग्स प्रदान की गईं। कृपया रिफ्रेश करें और पुनः प्रयास करें।",
         conversionFailed: "परिवर्तन विफल। कृपया पुनः प्रयास करें।",
-        noRotationsProvided: "कृपया कम से कम एक फ़ाइल के लिए रोटेशन निर्दिष्ट करें",
-        rotationFailed: "PDF को घुमाने में विफल। कृपया पुनः प्रयास करें。",
-        invalidRotationAngle: "अमान्य रोटेशन कोण। 90, 180, या 270 डिग्री का उपयोग करें।"
+        noLanguagesSelected: "कृपया OCR के लिए कम से कम एक भाषा चुनें",
+        invalidLanguagesFormat: "अमान्य भाषा चयन प्रारूप",
+        noLanguagesForFile: "कृपया सभी फ़ाइलों के लिए भाषा(एं) चुनें",
+        unsupportedLanguage: "एक या अधिक चयनित भाषाएं समर्थित नहीं हैं",
+        tooManyLanguages: "प्रति फ़ाइल अधिकतम 3 भाषाओं की अनुमति है",
+        ocrFailed: "OCR प्रसंस्करण विफल रहा। कृपया पुनः प्रयास करें।",
+        ocrNoTextDetected: "दस्तावेज़ में कोई पाठ नहीं मिला",
+        pdfAlreadySearchable: "PDF में पहले से खोजने योग्य टेक्स्ट है",
+        freeTierLimitExceeded: "मुफ्त स्तर की सीमा पार हो गई। कृपया प्रीमियम में अपग्रेड करें।",
     },
 };
 

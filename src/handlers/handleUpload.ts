@@ -1,31 +1,32 @@
-// now i want to fix the ocr-pdf api, this is the front-end i.e what i'm sending from the client:
+// apps/ocr-pdf/handleUpload.ts - OCR-PDF SPECIFIC
 import axios from "axios";
-import { downloadConvertedFile } from "../downloadFile";
-import type { errors as _ } from "../content";
-import { type RefObject } from "react";
-import { resetErrorMessage, setField } from "../store";
+import { downloadConvertedFile } from "../../src/downloadFile";
+import type { errors as _ } from "../../src/content";
+import { resetErrorMessage, setField } from "../../src/store";
 import type { Action, Dispatch } from "@reduxjs/toolkit/react";
-import { parseErrorResponse } from "../utils";
+import { parseErrorResponse } from "../../src/utils";
+import { toast } from "react-toastify";
 
-let filesOnSubmit = [];
-let prevState = null;
+let filesOnSubmit: string[] = [];
+let prevState: string | null = null;
 
 export const handleUpload = async (
   e: React.SubmitEvent<HTMLFormElement>,
-  downloadBtn: RefObject<HTMLAnchorElement>,
+  downloadBtn: React.RefObject<HTMLAnchorElement | null> | null,
   dispatch: Dispatch<Action>,
   state: {
     path: string;
     errorMessage: string;
     fileName: string;
-    rotations: {
+    selectedLanguages: {
       k: string;
-      r: number;
-    }[];
+      langs: string[];
+    }[] | null;
+    converter: "free" | "premium";
     passwords: {
       k: string;
       p: string;
-    }[];
+    }[]
   },
   files: File[],
   errors: _
@@ -33,16 +34,56 @@ export const handleUpload = async (
   e.preventDefault();
   dispatch(setField({ isSubmitted: true }));
 
-  if (!files) return;
+  if (!files || files.length === 0) return;
 
-  // Extract file names from the File[] array
+  // ===== VALIDATE LANGUAGES =====
+  if (!state.selectedLanguages || state.selectedLanguages.length === 0) {
+    dispatch(
+      setField({
+        errorMessage:
+          errors.alerts?.noLanguagesSelected ||
+          "Please select at least one language for OCR",
+      })
+    );
+    dispatch(setField({ isSubmitted: false }));
+    toast.error(
+      errors.alerts?.noLanguagesSelected ||
+      "Please select at least one language for OCR"
+    );
+    return;
+  }
+
+  // Validate that each file has languages selected
   const fileNames = files.map((file) => file.name);
+  for (const fileName of fileNames) {
+    const fileKey = fileName.split(".")[0].replace(/[^a-zA-Z0-9]/g, "_");
+    const fileLanguages = state.selectedLanguages.find(
+      (item) => item.k === fileKey
+    );
 
-  // Check if every file name in files is present in filesOnSubmit
+    if (!fileLanguages || fileLanguages.langs.length === 0) {
+      dispatch(
+        setField({
+          errorMessage:
+            errors.alerts?.noLanguagesForFile ||
+            `Please select language(s) for ${fileName}`,
+        })
+      );
+      dispatch(setField({ isSubmitted: false }));
+      toast.error(
+        errors.alerts?.noLanguagesForFile ||
+        `Please select language(s) for ${fileName}`
+      );
+      return;
+    }
+  }
+
+  // ===== CHECK CACHE =====
   const allFilesPresent = fileNames.every((fileName) =>
     filesOnSubmit.includes(fileName)
   );
   const strState = JSON.stringify(state);
+
   if (
     allFilesPresent &&
     files.length === filesOnSubmit.length &&
@@ -54,16 +95,22 @@ export const handleUpload = async (
   }
   prevState = strState;
 
-  // Prepare form data
+  // ===== PREPARE FORM DATA =====
   const formData = new FormData();
+
+  // Add files
   for (let i = 0; i < files.length; i++) {
     formData.append("files", files[i]);
   }
-  formData.append("rotations", JSON.stringify(state.rotations));
+
+  // Add selected languages (as JSON string)
+  formData.append("selectedLanguages", JSON.stringify(state.selectedLanguages));
+  // passwords if any:
   formData.append("passwords", JSON.stringify(state.passwords));
 
+  // ===== DETERMINE ENDPOINT =====
   let url: string = "";
-  let endpoint = "/api/";
+  const endpoint = state.converter === "free" ? "/api/" : "/premium/";
 
   // @ts-ignore
   if (process.env.NODE_ENV === "development") {
@@ -79,23 +126,25 @@ export const handleUpload = async (
   const originalFileName =
     state.fileName || files[0]?.name?.split(".").slice(0, -1).join(".");
 
+  // ===== MIME TYPE LOOKUP TABLE =====
   const mimeTypeLookupTable: {
     [key: string]: { outputFileMimeType: string; outputFileName: string };
   } = {
     "application/zip": {
       outputFileMimeType: "application/zip",
-      outputFileName: `${originalFileName || "PDFEquips"}-compressed.zip`,
+      outputFileName: `${originalFileName || "PDFEquips"}-ocr.zip`,
     },
     "application/pdf": {
       outputFileMimeType: "application/pdf",
-      outputFileName: `${originalFileName}.pdf`,
+      outputFileName: `${originalFileName || "PDFEquips"}-ocr.pdf`,
     },
   };
 
   try {
+    // ===== MAKE REQUEST =====
     const response = await axios.post(url, formData, {
       responseType: "arraybuffer",
-      withCredentials: true
+      withCredentials: true,
     });
 
     const mimeType = response.data.type || response.headers["content-type"];
@@ -104,14 +153,6 @@ export const handleUpload = async (
       outputFileName: "",
     };
     const { outputFileMimeType, outputFileName } = mimeTypeData;
-    const compressedFileSize = response.data.byteLength;
-
-    // Dispatch the compressed file size to Redux store
-    dispatch(
-      setField({
-        compressedFileSize: compressedFileSize,
-      })
-    );
 
     dispatch(setField({ showDownloadBtn: true }));
     downloadConvertedFile(
@@ -129,67 +170,100 @@ export const handleUpload = async (
       dispatch(setField({ isSubmitted: false }));
     }
   } catch (error) {
+    // ===== NETWORK ERROR =====
     if ((error as { code: string }).code === "ERR_NETWORK") {
       dispatch(setField({ errorMessage: errors.ERR_NETWORK.message }));
+      toast.error(errors.ERR_NETWORK.message);
       return;
     }
 
-    // Handle server validation/auth errors
+    // ===== SERVER VALIDATION/AUTH ERRORS =====
     if (axios.isAxiosError(error) && error.response) {
       try {
+        // apps/ocr-pdf/handleUpload.ts - UPDATE ERROR CODE MAP
+
         const errorCodeMap: Record<string, string> = {
           // General file validation errors
-          'NO_FILES_PROVIDED': errors.alerts.fileNotUploaded || 'No files provided',
-          'FILE_NOT_UPLOADED': errors.alerts.fileNotUploaded || 'File not uploaded',
-          'FILE_EMPTY': errors.alerts.fileEmpty || 'File is empty',
-          'FILE_TOO_LARGE': errors.alerts.fileTooLarge || 'File is too large',
-          'TOO_MANY_FILES': errors.alerts.tooManyFiles || 'Too many files uploaded',
-          'INVALID_FILE_TYPE': errors.alerts.invalidFileType || 'Invalid file type',
-          'FILE_CORRUPT': errors.alerts.fileCorrupt || 'File is corrupted',
+          NO_FILES_PROVIDED:
+            errors.alerts.fileNotUploaded || "No files provided",
+          FILE_NOT_UPLOADED:
+            errors.alerts.fileNotUploaded || "File not uploaded",
+          FILE_EMPTY: errors.alerts.fileEmpty || "File is empty",
+          FILE_TOO_LARGE: errors.alerts.fileTooLarge || "File is too large",
+          TOO_MANY_FILES:
+            errors.alerts.tooManyFiles || "Too many files uploaded",
+          INVALID_FILE_TYPE:
+            errors.alerts.invalidFileType || "Invalid file type",
+          FILE_CORRUPT: errors.alerts.fileCorrupt || "File is corrupted",
 
           // PDF-specific errors
-          'INVALID_PDF': errors.alerts.invalidPdf || 'Invalid PDF file',
-          'PDF_NOT_ENCRYPTED': errors.alerts.pdfNotEncrypted || 'PDF is not password-protected',
+          INVALID_PDF: errors.alerts.invalidPdf || "Invalid PDF file",
 
-          // Lock-PDF specific errors
-          'NO_LOCK_PASSWORD_PROVIDED': errors.alerts.noLockPassword || 'Please provide a password to lock the PDF',
-          'LOCKING_FAILED': errors.alerts.lockingFailed || 'Failed to lock PDF. Please try again.',
-
-          // Unlock-PDF specific errors
-          'NO_PASSWORDS_PROVIDED': errors.alerts.noPasswordsProvided || 'Please provide passwords for locked PDFs',
-          'UNLOCKING_FAILED': errors.alerts.unlockingFailed || 'Failed to unlock PDF. Please check the password and try again.',
-          'INCORRECT_PASSWORD': errors.alerts.incorrectPassword || 'Incorrect password provided',
-          'PASSWORD_REQUIRED': errors.alerts.passwordRequired || 'Password required to unlock PDF',
-
-          // Settings errors
-          'INVALID_SETTINGS_FORMAT': errors.alerts.invalidSettings || 'Invalid settings format',
+          // ✅ OCR-specific errors (UPDATED)
+          NO_LANGUAGES_PROVIDED:
+            errors.alerts.noLanguagesSelected ||
+            "Please select language(s) for OCR",
+          INVALID_LANGUAGES_FORMAT:
+            errors.alerts.invalidLanguagesFormat ||
+            "Invalid language selection format",
+          NO_LANGUAGES_FOR_FILE:
+            errors.alerts.noLanguagesForFile ||
+            "Please select language(s) for all files",
+          UNSUPPORTED_LANGUAGE:
+            errors.alerts.unsupportedLanguage ||
+            "One or more selected languages are not supported",
+          TOO_MANY_LANGUAGES:
+            errors.alerts.tooManyLanguages ||
+            "Maximum 3 languages allowed per file",
+          OCR_FAILED:
+            errors.alerts.ocrFailed ||
+            "OCR processing failed. Please try again.",
+          OCR_NO_TEXT_DETECTED:
+            errors.alerts.ocrNoTextDetected ||
+            "No text could be detected in the document",
+          PDF_ALREADY_SEARCHABLE:
+            errors.alerts.pdfAlreadySearchable ||
+            "PDF already contains searchable text",
 
           // Auth errors
-          'UNAUTHORIZED': errors.alerts.authRequired || 'Authentication required',
-          'INVALID_TOKEN': errors.alerts.invalidToken || 'Invalid authentication token',
-          'AUTH_TOKEN_MISSING': errors.alerts.authRequired || 'Authentication required',
-          'AUTH_TOKEN_EXPIRED': errors.alerts.sessionExpired || 'Session expired. Please sign in again.',
-          'AUTH_INVALID_TOKEN': errors.alerts.invalidToken || 'Invalid authentication token',
-          'AUTH_USER_NOT_FOUND': errors.alerts.userNotFound || 'User not found',
-          'AUTH_SERVER_ERROR': errors.alerts.authError || 'Authentication error',
+          UNAUTHORIZED:
+            errors.alerts.authRequired || "Authentication required",
+          INVALID_TOKEN:
+            errors.alerts.invalidToken || "Invalid authentication token",
+          AUTH_TOKEN_MISSING:
+            errors.alerts.authRequired || "Authentication required",
+          AUTH_TOKEN_EXPIRED:
+            errors.alerts.sessionExpired ||
+            "Session expired. Please sign in again.",
+          AUTH_INVALID_TOKEN:
+            errors.alerts.invalidToken || "Invalid authentication token",
+          AUTH_USER_NOT_FOUND: errors.alerts.userNotFound || "User not found",
+          AUTH_SERVER_ERROR:
+            errors.alerts.authError || "Authentication error",
 
           // Server errors
-          'SERVER_CONFIG_ERROR': errors.alerts.serverError || 'Server configuration error',
+          SERVER_CONFIG_ERROR:
+            errors.alerts.serverError || "Server configuration error",
 
           // Other errors
-          'MAX_PAGES_EXCEEDED': errors.MAX_PAGES_EXCEEDED?.message,
-          'NO_ROTATIONS_PROVIDED': errors.alerts.noRotationsProvided,
-          'ROTATION_FAILED': errors.alerts.rotationFailed,
-          'INVALID_ROTATION_ANGLE': errors.alerts.invalidRotationAngle,
+          MAX_PAGES_EXCEEDED: errors.MAX_PAGES_EXCEEDED?.message,
+
+          // ✅ Premium/Free tier errors (UPDATED)
+          INSUFFICIENT_CONVERSION_UNITS:
+            errors.alerts.insufficientUnits ||
+            "Not enough conversion units. Upgrade or recharge!",
+          FREE_TIER_LIMIT_EXCEEDED:
+            errors.alerts.freeTierLimitExceeded ||
+            "Free tier limit exceeded. Please upgrade to premium.",
         };
 
         const { errorCode } = parseErrorResponse(error);
-
-        const message = errorCodeMap[errorCode];
+        const message = errorCodeMap[errorCode as keyof typeof errorCodeMap];
 
         if (message) {
           dispatch(setField({ limitationMsg: message }));
           dispatch(setField({ errorCode }));
+          toast.error(message);
           return;
         }
       } catch {

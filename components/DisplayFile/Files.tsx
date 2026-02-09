@@ -27,10 +27,9 @@ type FileProps = {
   drop_files: string;
   path: Paths;
   languageSelectProps: {
-    content: edit_page["filenameOptions"];
+    content: edit_page["languageSelectContent"];
     themeColor: string;
   };
-  actionContent: edit_page["actionContent"];
 };
 
 const Files = ({
@@ -41,7 +40,6 @@ const Files = ({
   drop_files,
   languageSelectProps,
   path,
-  actionContent,
 }: FileProps) => {
   const { files, setFiles } = useFileStore();
   const dispatch = useDispatch();
@@ -137,14 +135,10 @@ const Files = ({
             extension={extension}
             file={file}
             index={index}
-            isDraggable={false}
-            provided={null}
-            snapshot={null}
             errors={errors}
             loader_text={loader_text}
             fileDetailProps={fileDetailProps}
             languageSelectProps={languageSelectProps}
-            actionContent={actionContent}
           />
         </div>
       ))}

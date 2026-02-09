@@ -15,11 +15,12 @@ export interface ToolState {
   showOptions: boolean;
   fileName: string;
   limitationMsg: string;
-  rotations: { k: string; r: number }[];
-  passwords: { k: string; p: string }[];
+  selectedLanguages: { k: string; langs: string[] }[] | null;
   subscriptionStatus: boolean | null;
   isAdBlocked: boolean;
   ocr_warning: string;
+  passwords: { k: string; p: string }[];
+  converter: "free" | "premium"
 }
 
 const initialState: ToolState = {
@@ -31,11 +32,12 @@ const initialState: ToolState = {
   showOptions: false,
   fileName: "",
   limitationMsg: "",
-  rotations: [],
-  passwords: [],
   subscriptionStatus: null,
+  selectedLanguages: null,
   isAdBlocked: false,
   ocr_warning: "",
+  passwords: [],
+  converter: "free"
 };
 
 const toolSlice = createSlice({
@@ -71,15 +73,31 @@ export const { resetErrorMessage, setField } = toolSlice.actions;
  */
 export const selectToolState = (state: { tool: ToolState }) => state.tool;
 
-export const selectRotations = createSelector(
-  [selectToolState],
-  (state) => state.rotations
-);
-
 export const selectPasswords = createSelector(
   [selectToolState],
   (state) => state.passwords
 );
+
+/**
+ * Select all selected languages - returns empty array instead of null for consistency
+ */
+export const selectSelectedLanguages = createSelector(
+  [(state: { tool: ToolState }) => state.tool.selectedLanguages],
+  (selectedLanguages) => selectedLanguages || []
+);
+
+/**
+ * Select languages for a specific file
+ * Usage: useSelector(useMemo(() => selectLanguagesForFile(fileKey), [fileKey]))
+ */
+export const selectLanguagesForFile = (fileKey: string) =>
+  createSelector(
+    [selectSelectedLanguages],
+    (selectedLanguages) =>
+      selectedLanguages
+        .filter((item) => item.k === fileKey)
+        .flatMap((item) => item.langs)
+  );
 
 
 export default toolSlice.reducer;

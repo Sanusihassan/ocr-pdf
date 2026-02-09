@@ -53,6 +53,17 @@ export const edit_page: _edit_page = {
             cta: "立即升级",
         },
     },
+    languageSelectContent: {
+        placeholder: "选择语言（最多 3 种）",
+        warning: "此文档为扫描件。请选其语言以确保结果准确。",
+        ocr_warning: "检测到扫描文档。为获得最佳效果，请使用我们的 OCR PDF 工具，具有高级语言检测和更高精度。您也可以在此处设置语言进行基本处理。",
+    },
+    converter: {
+        free: "基础版",
+        premium: "高级版",
+        freeToolTip: "基础OCR - 简单文本提取",
+        premiumToolTip: "高精度OCR，保留格式"
+    }
 };
 
 export const downloadFile: _downloadFile = {
@@ -191,9 +202,15 @@ export const errors: _ = {
         // Settings errors
         invalidSettings: "提供的设置无效。请刷新并重试。",
         conversionFailed: "转换失败。请重试。",
-        noRotationsProvided: "请为至少一个文件指定旋转",
-        rotationFailed: "旋转 PDF 失败。请重试。",
-        invalidRotationAngle: "无效的旋转角度。使用 90、180 或 270 度。"
+        noLanguagesSelected: "请至少选择一种OCR语言",
+        invalidLanguagesFormat: "无效的语言选择格式",
+        noLanguagesForFile: "请为所有文件选择语言",
+        unsupportedLanguage: "一个或多个所选语言不受支持",
+        tooManyLanguages: "每个文件最多允许3种语言",
+        ocrFailed: "OCR处理失败。请重试。",
+        ocrNoTextDetected: "文档中未检测到文本",
+        pdfAlreadySearchable: "PDF已包含可搜索文本",
+        freeTierLimitExceeded: "已超出免费层限制。请升级到高级版。",
     },
 };
 

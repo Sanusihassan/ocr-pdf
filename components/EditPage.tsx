@@ -104,7 +104,7 @@ const EditPage = ({
             }
           </bdi>
         </h5>
-        <Options rotate_pdf_options={edit_page.rotate_pdf_options} />
+        <Options edit_page={edit_page} theme={`var(--${path})`} />
         <div className="hide-onsmall">
           <SubmitBtn errors={errors} k={path} edit_page={edit_page} />
         </div>

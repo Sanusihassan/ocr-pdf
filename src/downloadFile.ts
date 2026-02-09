@@ -4,7 +4,7 @@ export const downloadConvertedFile = (
   response: any,
   fileType: string,
   fileName: string,
-  downloadBtn: RefObject<HTMLAnchorElement>
+  downloadBtn: React.RefObject<HTMLAnchorElement | null> | null
 ) => {
   const blob = new Blob([response.data], { type: fileType });
   const url = URL.createObjectURL(blob);

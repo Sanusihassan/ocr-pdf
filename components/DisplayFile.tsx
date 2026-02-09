@@ -40,10 +40,9 @@ const DisplayFile = ({
         drop_files={drop_files}
         path={path}
         languageSelectProps={{
-          content: edit_page.filenameOptions,
+          content: edit_page.languageSelectContent,
           themeColor: `var(--${path})`,
         }}
-        actionContent={edit_page.actionContent}
       />
     </>
   );

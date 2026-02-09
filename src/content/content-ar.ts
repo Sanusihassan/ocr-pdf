@@ -53,6 +53,17 @@ export const edit_page: _edit_page = {
             cta: "الترقية الآن",
         },
     },
+    languageSelectContent: {
+        placeholder: "اختر اللغات (حد أقصى 3)",
+        warning: "هذا المستند ممسوح ضوئيًا. يرجى اختيار لغته لضمان نتائج دقيقة.",
+        ocr_warning: "تم اكتشاف مستند ممسوح ضوئيًا. للحصول على أفضل النتائج، استخدم أداة OCR PDF الخاصة بنا مع اكتشاف متقدم للغة ودقة أعلى. يمكنك أيضًا تعيين اللغة هنا للمعالجة الأساسية.",
+    },
+    converter: {
+        free: "أساسي",
+        premium: "مميز",
+        freeToolTip: "تحويل أساسي - استخراج نص بسيط",
+        premiumToolTip: "تحويل عالي الدقة مع الحفاظ على التنسيق"
+    },
 };
 
 export const downloadFile: _downloadFile = {
@@ -189,9 +200,15 @@ export const errors: _errors = {
         invalidSettings: "إعدادات غير صالحة مقدمة. يرجى التحديث والمحاولة مرة أخرى.",
         conversionFailed: "فشل التحويل. يرجى المحاولة مرة أخرى.",
         tooManyFiles: "تم تحميل ملفات كثيرة جدًا",
-        noRotationsProvided: "يرجى تحديد الدوران لملف واحد على الأقل",
-        rotationFailed: "فشل تدوير PDF. يرجى المحاولة مرة أخرى.",
-        invalidRotationAngle: "زاوية دوران غير صالحة. استخدم 90 أو 180 أو 270 درجة."
+        noLanguagesSelected: "الرجاء تحديد لغة واحدة على الأقل للتعرف الضوئي على الحروف",
+        invalidLanguagesFormat: "تنسيق اختيار اللغة غير صالح",
+        noLanguagesForFile: "الرجاء تحديد لغة (لغات) لجميع الملفات",
+        unsupportedLanguage: "لغة واحدة أو أكثر من اللغات المحددة غير مدعومة",
+        tooManyLanguages: "الحد الأقصى 3 لغات لكل ملف",
+        ocrFailed: "فشلت معالجة التعرف الضوئي. يرجى المحاولة مرة أخرى.",
+        ocrNoTextDetected: "لم يتم اكتشاف أي نص في المستند",
+        pdfAlreadySearchable: "يحتوي ملف PDF بالفعل على نص قابل للبحث",
+        freeTierLimitExceeded: "تم تجاوز حد المستوى المجاني. يرجى الترقية إلى المستوى المميز.",
     },
 };
 

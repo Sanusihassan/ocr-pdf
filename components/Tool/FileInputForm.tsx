@@ -36,11 +36,14 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
   const fileName = useSelector(
     (state: { tool: ToolState }) => state.tool.fileName,
   );
-  const rotations = useSelector(
-    (state: { tool: ToolState }) => state.tool.rotations,
-  );
   const passwords = useSelector(
     (state: { tool: ToolState }) => state.tool.passwords,
+  );
+  const converter = useSelector(
+    (state: { tool: ToolState }) => state.tool.converter,
+  );
+  const selectedLanguages = useSelector(
+    (state: { tool: ToolState }) => state.tool.selectedLanguages,
   );
   const dispatch = useDispatch();
   // file store
@@ -75,8 +78,9 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
             path,
             errorMessage,
             fileName,
-            rotations,
             passwords,
+            converter,
+            selectedLanguages,
           },
           files,
           errors,

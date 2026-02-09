@@ -53,6 +53,17 @@ export const edit_page: _edit_page = {
       cta: "Actualizar ahora",
     },
   },
+  languageSelectContent: {
+    placeholder: "Elegir idiomas (máximo 3)",
+    warning: "Este documento está escaneado. Por favor seleccione su idioma para garantizar resultados precisos.",
+    ocr_warning: "Documento escaneado detectado. Para obtener los mejores resultados, utilice nuestra herramienta OCR PDF con detección avanzada de idioma y mayor precisión. También puede configurar el idioma aquí para procesamiento básico.",
+  },
+  converter: {
+    free: "Básico",
+    premium: "Premium",
+    freeToolTip: "OCR básico - extracción de texto simple",
+    premiumToolTip: "OCR de alta precisión con preservación de formato"
+  },
 };
 
 export const downloadFile: _downloadFile = {
@@ -193,9 +204,15 @@ export const errors: _errors = {
     // Settings errors
     invalidSettings: "Configuraciones inválidas proporcionadas. Por favor, actualiza e inténtalo de nuevo.",
     conversionFailed: "Conversión fallida. Por favor, inténtalo de nuevo.",
-    noRotationsProvided: "Por favor, especifique la rotación para al menos un archivo",
-    rotationFailed: "Fallo al rotar el PDF. Por favor, inténtelo de nuevo.",
-    invalidRotationAngle: "Ángulo de rotación inválido. Use 90, 180 o 270 grados."
+    noLanguagesSelected: "Por favor seleccione al menos un idioma para OCR",
+    invalidLanguagesFormat: "Formato de selección de idioma no válido",
+    noLanguagesForFile: "Por favor seleccione idioma(s) para todos los archivos",
+    unsupportedLanguage: "Uno o más idiomas seleccionados no son compatibles",
+    tooManyLanguages: "Máximo 3 idiomas permitidos por archivo",
+    ocrFailed: "El procesamiento OCR falló. Inténtalo de nuevo.",
+    ocrNoTextDetected: "No se pudo detectar texto en el documento",
+    pdfAlreadySearchable: "El PDF ya contiene texto que se puede buscar",
+    freeTierLimitExceeded: "Límite de nivel gratuito excedido. Actualice a premium.",
   },
 };
 

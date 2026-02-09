@@ -53,6 +53,17 @@ export const edit_page: _edit_page = {
             cta: "Mettre à niveau maintenant",
         },
     },
+    languageSelectContent: {
+        placeholder: "Choisir les langues (maximum 3)",
+        warning: "Ce document est numérisé. Veuillez sélectionner sa langue pour garantir des résultats précis.",
+        ocr_warning: "Document numérisé détecté. Pour de meilleurs résultats, utilisez notre outil OCR PDF avec détection avancée de langue et précision supérieure. Vous pouvez également définir la langue ici pour un traitement de base.",
+    },
+    converter: {
+        free: "Basique",
+        premium: "Premium",
+        freeToolTip: "OCR basique - extraction de texte simple",
+        premiumToolTip: "OCR haute précision avec préservation du formatage"
+    },
 };
 
 export const downloadFile: _downloadFile = {
@@ -190,9 +201,15 @@ export const errors: _ = {
         // Settings errors
         invalidSettings: "Paramètres invalides fournis. Veuillez actualiser et réessayer.",
         conversionFailed: "Échec de la conversion. Veuillez réessayer.",
-        noRotationsProvided: "Veuillez spécifier la rotation pour au moins un fichier",
-        rotationFailed: "Échec de la rotation du PDF. Veuillez réessayer.",
-        invalidRotationAngle: "Angle de rotation invalide. Utilisez 90, 180 ou 270 degrés."
+        noLanguagesSelected: "Veuillez sélectionner au moins une langue pour l'OCR",
+        invalidLanguagesFormat: "Format de sélection de langue non valide",
+        noLanguagesForFile: "Veuillez sélectionner une/des langue(s) pour tous les fichiers",
+        unsupportedLanguage: "Une ou plusieurs langues sélectionnées ne sont pas prises en charge",
+        tooManyLanguages: "Maximum 3 langues autorisées par fichier",
+        ocrFailed: "Le traitement OCR a échoué. Veuillez réessayer.",
+        ocrNoTextDetected: "Aucun texte n'a pu être détecté dans le document",
+        pdfAlreadySearchable: "Le PDF contient déjà du texte consultable",
+        freeTierLimitExceeded: "Limite du niveau gratuit dépassée. Veuillez passer à premium.",
     },
 };
 

@@ -13,246 +13,367 @@ export const OCRPDFHOWTO: WithContext<HowTo> = {
       "@type": "HowToStep",
       name: "Step 1: Upload PDF",
       text: "Upload the PDF file.",
-      // Object literal may only specify known properties, and 'substeps' does not exist in type 'IdReference | HowToStepLeaf'.ts(2353)
-      substeps: [
-        "Click 'Select PDF files' or drag and drop the PDF file into the designated area.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Click 'Select PDF files' or drag and drop the PDF file into the designated area.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
       name: "Step 2: Choose Document Languages",
       text: "Select the document languages.",
-      substeps: [
-        "If needed, choose up to three languages that represent the document's language.",
-        "Accurate language selection enhances text recognition accuracy.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "If needed, choose up to three languages that represent the document's language.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "Accurate language selection enhances text recognition accuracy.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
       name: "Step 3: Perform OCR",
       text: "Initiate Optical Character Recognition (OCR).",
-      substeps: [
-        "Click 'OCR PDF' or 'Begin OCR' to start the recognition process.",
-        "Wait for the OCR procedure to complete.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Click 'OCR PDF' or 'Begin OCR' to start the recognition process.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "Wait for the OCR procedure to complete.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
       name: "Step 4: Download OCR PDF",
       text: "Download the OCR-processed PDF.",
-      substeps: ["Click 'Download' to retrieve the OCR-processed PDF file."],
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Click 'Download' to retrieve the OCR-processed PDF file.",
+        },
+      ],
     },
   ],
 };
 
+// Arabic
 export const OCRPDFHOWTO_ar: WithContext<HowTo> = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "كيفية إجراء OCR على ملفات PDF",
-  description: "دليل خطوة بخطوة للتعرف الضوئي على النصوص في ملفات PDF.",
+  name: "كيفية إجراء التعرف الضوئي على الأحرف على ملفات PDF",
+  description:
+    "دليل خطوة بخطوة للتعرف الضوئي على الأحرف في مستندات PDF.",
   step: [
     {
       "@type": "HowToStep",
       name: "الخطوة 1: تحميل ملف PDF",
       text: "قم بتحميل ملف PDF.",
-      substeps: [
-        "انقر على 'اختيار ملفات PDF' أو اسحب وأسقط ملف PDF في المنطقة المخصصة.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "انقر على 'تحديد ملفات PDF' أو اسحب وأفلت ملف PDF في المنطقة المخصصة.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "الخطوة 2: اختيار لغات الوثيقة",
-      text: "حدد لغات الوثيقة.",
-      substeps: [
-        "إذا لزم الأمر، اختر ما يصل إلى ثلاث لغات تمثل لغة الوثيقة.",
-        "يعزز اختيار اللغات بدقة دقة التعرف على النص.",
+      name: "الخطوة 2: اختر لغات المستند",
+      text: "حدد لغات المستند.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "إذا لزم الأمر، اختر ما يصل إلى ثلاث لغات تمثل لغة المستند.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "اختيار اللغة الدقيق يعزز دقة التعرف على النص.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "الخطوة 3: إجراء OCR",
-      text: "بدء التعرف الضوئي على النصوص (OCR).",
-      substeps: [
-        "انقر على 'OCR PDF' أو 'بدء OCR' لبدء عملية التعرف.",
-        "انتظر اكتمال عملية التعرف الضوئي على النص.",
+      name: "الخطوة 3: إجراء التعرف الضوئي على الأحرف",
+      text: "ابدأ عملية التعرف الضوئي على الأحرف (OCR).",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "انقر على 'التعرف الضوئي على PDF' أو 'بدء التعرف الضوئي' لبدء عملية التعرف.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "انتظر حتى تكتمل عملية التعرف الضوئي على الأحرف.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "الخطوة 4: تنزيل ملف PDF مع التعرف الضوئي",
+      name: "الخطوة 4: تنزيل ملف PDF بعد التعرف الضوئي",
       text: "قم بتنزيل ملف PDF الذي تم معالجته بالتعرف الضوئي.",
-      substeps: ["انقر على 'تنزيل' لاسترداد ملف PDF المعالج بالتعرف الضوئي."],
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "انقر على 'تنزيل' لاسترداد ملف PDF الذي تم معالجته بالتعرف الضوئي.",
+        },
+      ],
     },
   ],
 };
 
+// Spanish
 export const OCRPDFHOWTO_es: WithContext<HowTo> = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "Cómo Realizar OCR en Archivos PDF",
+  name: "Cómo realizar OCR en archivos PDF",
   description:
-    "Guía paso a paso para el reconocimiento óptico de caracteres en documentos PDF.",
+    "Guía paso a paso para el Reconocimiento Óptico de Caracteres en documentos PDF.",
   step: [
     {
       "@type": "HowToStep",
-      name: "Paso 1: Subir archivo PDF",
-      text: "Sube el archivo PDF.",
-      substeps: [
-        "Haz clic en 'Seleccionar archivos PDF' o arrastra y suelta el archivo PDF en el área designada.",
+      name: "Paso 1: Cargar PDF",
+      text: "Cargue el archivo PDF.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Haga clic en 'Seleccionar archivos PDF' o arrastre y suelte el archivo PDF en el área designada.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "Paso 2: Seleccionar Idiomas del Documento",
-      text: "Elige los idiomas del documento.",
-      substeps: [
-        "Si es necesario, selecciona hasta tres idiomas que representen el idioma del documento.",
-        "La selección precisa del idioma mejora la precisión del reconocimiento de texto.",
+      name: "Paso 2: Elegir idiomas del documento",
+      text: "Seleccione los idiomas del documento.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Si es necesario, elija hasta tres idiomas que representen el idioma del documento.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "La selección precisa del idioma mejora la precisión del reconocimiento de texto.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
       name: "Paso 3: Realizar OCR",
-      text: "Inicia el proceso de Reconocimiento Óptico de Caracteres (OCR).",
-      substeps: [
-        "Haz clic en 'OCR PDF' o 'Iniciar OCR' para comenzar el proceso de reconocimiento.",
-        "Espera a que finalice el proceso de OCR.",
+      text: "Inicie el Reconocimiento Óptico de Caracteres (OCR).",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Haga clic en 'OCR PDF' o 'Comenzar OCR' para iniciar el proceso de reconocimiento.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "Espere a que se complete el procedimiento de OCR.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
       name: "Paso 4: Descargar PDF con OCR",
-      text: "Descarga el PDF procesado con OCR.",
-      substeps: [
-        "Haz clic en 'Descargar' para obtener el archivo PDF procesado con OCR.",
+      text: "Descargue el PDF procesado con OCR.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Haga clic en 'Descargar' para obtener el archivo PDF procesado con OCR.",
+        },
       ],
     },
   ],
 };
 
+// French
 export const OCRPDFHOWTO_fr: WithContext<HowTo> = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "Comment Effectuer une Reconnaissance Optique de Caractères (OCR) sur les Fichiers PDF",
+  name: "Comment effectuer l'OCR sur les fichiers PDF",
   description:
-    "Guide étape par étape pour la reconnaissance optique de caractères sur des documents PDF.",
+    "Guide étape par étape pour la reconnaissance optique de caractères sur les documents PDF.",
   step: [
     {
       "@type": "HowToStep",
-      name: "Étape 1: Télécharger le PDF",
+      name: "Étape 1 : Télécharger le PDF",
       text: "Téléchargez le fichier PDF.",
-      substeps: [
-        "Cliquez sur 'Sélectionner des fichiers PDF' ou faites glisser-déposer le fichier PDF dans la zone désignée.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Cliquez sur 'Sélectionner les fichiers PDF' ou glissez-déposez le fichier PDF dans la zone désignée.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "Étape 2: Sélectionner les Langues du Document",
-      text: "Choisissez les langues du document.",
-      substeps: [
-        "Si nécessaire, choisissez jusqu'à trois langues représentant la langue du document.",
-        "La sélection précise de la langue améliore la précision de la reconnaissance de texte.",
+      name: "Étape 2 : Choisir les langues du document",
+      text: "Sélectionnez les langues du document.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Si nécessaire, choisissez jusqu'à trois langues qui représentent la langue du document.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "Une sélection précise de la langue améliore la précision de la reconnaissance du texte.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "Étape 3: Lancer l'OCR",
-      text: "Démarrez le processus de Reconnaissance Optique de Caractères (OCR).",
-      substeps: [
-        "Cliquez sur 'OCR PDF' ou 'Démarrer OCR' pour lancer le processus de reconnaissance.",
-        "Attendez que le processus OCR soit terminé.",
+      name: "Étape 3 : Effectuer l'OCR",
+      text: "Lancez la reconnaissance optique de caractères (OCR).",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Cliquez sur 'OCR PDF' ou 'Commencer l'OCR' pour démarrer le processus de reconnaissance.",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "Attendez que la procédure d'OCR se termine.",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "Étape 4: Télécharger le PDF avec OCR",
-      text: "Téléchargez le PDF traité avec OCR.",
-      substeps: [
-        "Cliquez sur 'Télécharger' pour obtenir le fichier PDF traité avec OCR.",
+      name: "Étape 4 : Télécharger le PDF avec OCR",
+      text: "Téléchargez le PDF traité par OCR.",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "Cliquez sur 'Télécharger' pour récupérer le fichier PDF traité par OCR.",
+        },
       ],
     },
   ],
 };
 
+// Hindi
 export const OCRPDFHOWTO_hi: WithContext<HowTo> = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "PDF में OCR कैसे करें",
+  name: "PDF पर OCR कैसे करें",
   description:
-    "PDF दस्तावेजों में वस्त्रीय अक्षर पहचान के लिए चरणों का निर्देशिका।",
+    "PDF दस्तावेज़ों पर ऑप्टिकल कैरेक्टर रिकग्निशन के लिए चरण-दर-चरण गाइड।",
   step: [
     {
       "@type": "HowToStep",
-      name: "कदम 1: PDF अपलोड करें",
+      name: "चरण 1: PDF अपलोड करें",
       text: "PDF फ़ाइल अपलोड करें।",
-      substeps: [
-        " 'PDF फ़ाइलों का चयन करें' पर क्लिक करें या PDF फ़ाइल को निर्दिष्ट क्षेत्र में खींचें और छोड़ें।",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "'PDF फ़ाइलें चुनें' पर क्लिक करें या PDF फ़ाइल को निर्दिष्ट क्षेत्र में खींचें और छोड़ें।",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "कदम 2: दस्तावेज़ भाषाएँ चुनें",
-      text: "दस्तावेज़ भाषाओं का चयन करें।",
-      substeps: [
-        "यदि आवश्यक हो, तो दस्तावेज़ की भाषा का प्रतिनिधित्व करने वाली तीन भाषाएँ चुनें।",
-        "भाषा का सटीक चयन टेक्स्ट पहचान की सटीकता को बढ़ाता है।",
+      name: "चरण 2: दस्तावेज़ की भाषाएं चुनें",
+      text: "दस्तावेज़ की भाषाएं चुनें।",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "यदि आवश्यक हो, तो तीन भाषाओं तक चुनें जो दस्तावेज़ की भाषा का प्रतिनिधित्व करती हैं।",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "सटीक भाषा चयन टेक्स्ट पहचान की सटीकता को बढ़ाता है।",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "कदम 3: OCR प्रक्रिया प्रारंभ करें",
-      text: "वस्त्रीय अक्षर पहचान (OCR) प्रक्रिया शुरू करें।",
-      substeps: [
-        "पहचान प्रक्रिया शुरू करने के लिए 'OCR PDF' या 'OCR प्रारंभ करें' पर क्लिक करें।",
-        "OCR प्रक्रिया का पूरा होने तक प्रतीक्षा करें।",
+      name: "चरण 3: OCR करें",
+      text: "ऑप्टिकल कैरेक्टर रिकग्निशन (OCR) शुरू करें।",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "पहचान प्रक्रिया शुरू करने के लिए 'OCR PDF' या 'OCR शुरू करें' पर क्लिक करें।",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "OCR प्रक्रिया पूर्ण होने तक प्रतीक्षा करें।",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "कदम 4: OCR वाला PDF डाउनलोड करें",
-      text: "OCR प्रोसेस किया गया PDF डाउनलोड करें।",
-      substeps: [
-        "OCR प्रोसेस किया गया PDF फ़ाइल प्राप्त करने के लिए 'डाउनलोड' पर क्लिक करें।",
+      name: "चरण 4: OCR PDF डाउनलोड करें",
+      text: "OCR-संसाधित PDF डाउनलोड करें।",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "OCR-संसाधित PDF फ़ाइल प्राप्त करने के लिए 'डाउनलोड' पर क्लिक करें।",
+        },
       ],
     },
   ],
 };
 
+// Chinese
 export const OCRPDFHOWTO_zh: WithContext<HowTo> = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "如何在PDF中进行OCR",
-  description: "PDF文档中进行光学字符识别的逐步指南。",
+  name: "如何对PDF进行OCR识别",
+  description: "PDF文档光学字符识别的分步指南。",
   step: [
     {
       "@type": "HowToStep",
-      name: "步骤 1：上传PDF",
+      name: "步骤1：上传PDF",
       text: "上传PDF文件。",
-      substeps: ["单击'选择PDF文件'或将PDF文件拖放到指定区域。"],
-    },
-    {
-      "@type": "HowToStep",
-      name: "步骤 2：选择文档语言",
-      text: "选择文档的语言。",
-      substeps: [
-        "如有需要，选择代表文档语言的最多三种语言。",
-        "准确选择语言有助于提高文本识别的准确性。",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: '点击"选择PDF文件"或将PDF文件拖放到指定区域。',
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "步骤 3：进行OCR",
-      text: "启动光学字符识别（OCR）过程。",
-      substeps: [
-        "单击 'OCR PDF' 或 '开始OCR' 启动识别过程。",
-        "等待OCR过程完成。",
+      name: "步骤2：选择文档语言",
+      text: "选择文档语言。",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: "如有需要，选择最多三种代表文档语言的语言。",
+        },
+        {
+          "@type": "HowToDirection",
+          text: "准确的语言选择可提高文本识别准确性。",
+        },
       ],
     },
     {
       "@type": "HowToStep",
-      name: "步骤 4：下载带OCR的PDF",
-      text: "下载经OCR处理的PDF。",
-      substeps: ["单击 '下载' 获取经OCR处理的PDF文件。"],
+      name: "步骤3：执行OCR",
+      text: "启动光学字符识别（OCR）。",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: '点击"OCR PDF"或"开始OCR"以启动识别过程。',
+        },
+        {
+          "@type": "HowToDirection",
+          text: "等待OCR过程完成。",
+        },
+      ],
+    },
+    {
+      "@type": "HowToStep",
+      name: "步骤4：下载OCR PDF",
+      text: "下载经过OCR处理的PDF。",
+      itemListElement: [
+        {
+          "@type": "HowToDirection",
+          text: '点击"下载"以获取经过OCR处理的PDF文件。',
+        },
+      ],
     },
   ],
 };

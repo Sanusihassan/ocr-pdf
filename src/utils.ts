@@ -582,6 +582,7 @@ export const validateFiles = (
 // Create worker instance (singleton)
 let analysisWorker: Worker | null = null;
 
+
 function getAnalysisWorker(): Worker {
   if (!analysisWorker) {
     analysisWorker = new Worker(
@@ -591,6 +592,47 @@ function getAnalysisWorker(): Worker {
   }
   return analysisWorker;
 }
+
+export async function analyzePDF(
+  pdfFile: File,
+  password?: string,
+  onProgress?: (current: number, total: number) => void
+) {
+  try {
+    const data = await pdfFile.arrayBuffer();
+    const worker = getAnalysisWorker();
+
+    return new Promise<{
+      scanned: boolean;
+      confidence: number;
+      metrics: any;
+    }>((resolve, reject) => {
+      const handleMessage = (e: MessageEvent) => {
+        if (e.data.type === 'progress' && onProgress) {
+          onProgress(e.data.current, e.data.total);
+        } else if (e.data.type === 'success') {
+          worker.removeEventListener('message', handleMessage);
+          resolve(e.data.result);
+        } else if (e.data.type === 'error') {
+          worker.removeEventListener('message', handleMessage);
+          reject(new Error(e.data.error));
+        }
+      };
+
+      worker.addEventListener('message', handleMessage);
+
+      worker.postMessage({
+        type: 'analyze',
+        fileData: data,
+        password: password || undefined
+      });
+    });
+  } catch (error) {
+    console.error('Error analyzing PDF:', error);
+    throw error;
+  }
+}
+
 
 // Optional: Clean up worker when done
 export function terminateAnalysisWorker() {
