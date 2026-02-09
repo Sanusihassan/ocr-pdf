@@ -1,10 +1,14 @@
+// keep in mind that i have a converter state variable: const converter: "free" | "premium"
+// only if it's "premium" then we'll filter the language set.
 import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { SUPPORTED_OCR_LANGUAGES } from "../src/convertApiLanguages";
 import Select from "react-select";
 import {
   setField,
   selectLanguagesForFile,
   selectSelectedLanguages,
+  type ToolState,
 } from "../src/store";
 import type { edit_page as _edit_pages } from "../src/content";
 import type {
@@ -48,19 +52,27 @@ export const LanguageSelect: React.FC<LanguageSelectProps> = ({
   // Get all selected languages for updating state
   const allSelectedLanguages = useSelector(selectSelectedLanguages);
 
+  const converter = useSelector(
+    (state: { tool: ToolState }) => state.tool.converter,
+  );
   // Language options from the languages object
   const languageOptions = useMemo(
     () =>
-      Object.entries(languages).map(
-        ([value, language]: [
-          string,
-          { name: string; nativeName: string },
-        ]) => ({
-          value,
-          label: `${language.name} (${language.nativeName})`,
-        }),
-      ),
-    [],
+      Object.entries(languages)
+        .filter(
+          ([code]) =>
+            converter !== "premium" || SUPPORTED_OCR_LANGUAGES.has(code),
+        )
+        .map(
+          ([value, language]: [
+            string,
+            { name: string; nativeName: string },
+          ]) => ({
+            value,
+            label: `${language.name} (${language.nativeName})`,
+          }),
+        ),
+    [converter],
   );
 
   // Multi-select styles with dynamic theme color

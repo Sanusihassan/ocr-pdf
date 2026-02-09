@@ -30,6 +30,9 @@ export function SubmitBtn({
   const subscriptionStatus = useSelector(
     (state: { tool: ToolState }) => state.tool.subscriptionStatus,
   );
+  const selectedLanguages = useSelector(
+    (state: { tool: ToolState }) => state.tool.selectedLanguages,
+  );
   // ✅ Always call the hook, then use the condition
   const isAdBlockedState = useSelector(
     (state: { tool: ToolState }) => state.tool.isAdBlocked,
@@ -66,7 +69,10 @@ export function SubmitBtn({
         }
       }}
       disabled={
-        errorMessage.length > 0 || limitationMsg.length > 0 || isAdBlocked
+        errorMessage.length > 0 ||
+        limitationMsg.length > 0 ||
+        isAdBlocked ||
+        !selectedLanguages
       }
     >
       <bdi>
