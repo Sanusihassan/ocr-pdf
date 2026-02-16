@@ -55,28 +55,30 @@ export const handleUpload = async (
 
   // Validate that each file has languages selected
   const fileNames = files.map((file) => file.name);
-  for (const fileName of fileNames) {
-    const fileKey = fileName.split(".")[0].replace(/[^a-zA-Z0-9]/g, "_");
-    const fileLanguages = state.selectedLanguages.find(
-      (item) => item.k === fileKey
-    );
+  // for (const fileName of fileNames) {
+  //   const fileKey = fileName.split(".")[0].replace(/[^a-zA-Z0-9]/g, "_");
+  //   const fileLanguages = state.selectedLanguages.find(
+  //     (item) => item.k === fileKey
+  //   );
 
-    if (!fileLanguages || fileLanguages.langs.length === 0) {
-      dispatch(
-        setField({
-          errorMessage:
-            errors.alerts?.noLanguagesForFile ||
-            `Please select language(s) for ${fileName}`,
-        })
-      );
-      dispatch(setField({ isSubmitted: false }));
-      toast.error(
-        errors.alerts?.noLanguagesForFile ||
-        `Please select language(s) for ${fileName}`
-      );
-      return;
-    }
-  }
+  //   console.log(fileLanguages)
+
+  //   if (!fileLanguages || fileLanguages.langs.length === 0) {
+  //     dispatch(
+  //       setField({
+  //         errorMessage:
+  //           errors.alerts?.noLanguagesForFile ||
+  //           `Please select language(s) for ${fileName}`,
+  //       })
+  //     );
+  //     dispatch(setField({ isSubmitted: false }));
+  //     toast.error(
+  //       errors.alerts?.noLanguagesForFile ||
+  //       `Please select language(s) for ${fileName}`
+  //     );
+  //     return;
+  //   }
+  // }
 
   // ===== CHECK CACHE =====
   const allFilesPresent = fileNames.every((fileName) =>
