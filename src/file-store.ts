@@ -6,15 +6,16 @@ export interface FileStore {
   files: File[];
   fileInput: React.RefObject<HTMLInputElement | null> | null;
   submitBtn: React.RefObject<HTMLButtonElement | null> | null;
-  downloadBtn: React.RefObject<HTMLAnchorElement | null> | null;
   imageUrls: {
     file: File;
     imageUrl: string;
   }[];
+  downloadBlob: Blob | null;
   setFiles: (files: FileList | File[]) => void;
   setFileInput: (refEl: React.RefObject<HTMLInputElement | null>) => void;
   setSubmitBtn: (refEl: React.RefObject<HTMLButtonElement | null> | null) => void;
-  setDownloadBtn: (refEl: React.RefObject<HTMLAnchorElement | null> | null) => void;
+  setDownloadBlob: (blob: Blob) => void;
+  clearDownloadBlob: () => void;
 }
 
 export const useFileStore = create<FileStore>((set) => ({
@@ -23,6 +24,7 @@ export const useFileStore = create<FileStore>((set) => ({
   downloadBtn: null,
   submitBtn: null,
   imageUrls: [],
+  downloadBlob: null,
   setFiles: (files: FileList | File[]) => {
     const uniqueFiles = new Set<File>();
 
@@ -40,13 +42,14 @@ export const useFileStore = create<FileStore>((set) => ({
   setSubmitBtn(refEl: React.RefObject<HTMLButtonElement | null> | null) {
     set({ submitBtn: refEl });
   },
-  setDownloadBtn(refEl: React.RefObject<HTMLAnchorElement | null> | null) {
-    set({ downloadBtn: refEl });
-  },
   setImageUrls(value: SetStateAction<{ file: File; imageUrl: string }[]>) {
     set((prevState) => ({
       imageUrls:
         typeof value === "function" ? value(prevState.imageUrls) : value,
     }));
   },
+  setDownloadBlob: (blob) =>
+    set({ downloadBlob: blob }),
+  clearDownloadBlob: () =>
+    set({ downloadBlob: null }),
 }));

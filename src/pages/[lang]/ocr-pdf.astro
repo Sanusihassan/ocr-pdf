@@ -1,0 +1,161 @@
+---
+// src/pages/[lang]/ocr-pdf.astro
+import BaseLayout from "../../partials/BaseLayout.astro";
+import { ToolWrapper } from "../../../components/ToolWrapper";
+
+// Import all localized text content bundles
+import * as contentAr from "../../content/content-ar";
+import * as contentEs from "../../content/content-es";
+import * as contentFr from "../../content/content-fr";
+import * as contentHi from "../../content/content-hi";
+import * as contentZh from "../../content/content-zh";
+
+// Import centralized how-to schemas matching the OCRPDF naming convention
+import {
+  OCRPDFHOWTO_ar,
+  OCRPDFHOWTO_es,
+  OCRPDFHOWTO_fr,
+  OCRPDFHOWTO_hi,
+  OCRPDFHOWTO_zh,
+} from "../../how-to";
+
+export async function getStaticPaths() {
+  // Define language configuration matrix for static routing generation
+  const languages = [
+    {
+      lang: "ar",
+      content: contentAr,
+      howTo: OCRPDFHOWTO_ar,
+      ogLocale: "ar_AR",
+    },
+    {
+      lang: "es",
+      content: contentEs,
+      howTo: OCRPDFHOWTO_es,
+      ogLocale: "es_ES",
+    },
+    {
+      lang: "fr",
+      content: contentFr,
+      howTo: OCRPDFHOWTO_fr,
+      ogLocale: "fr_FR",
+    },
+    {
+      lang: "hi",
+      content: contentHi,
+      howTo: OCRPDFHOWTO_hi,
+      ogLocale: "hi_IN",
+    },
+    {
+      lang: "zh",
+      content: contentZh,
+      howTo: OCRPDFHOWTO_zh,
+      ogLocale: "zh_CN",
+    },
+  ];
+
+  return languages.map((langConfig) => ({
+    params: { lang: langConfig.lang },
+    props: {
+      lang: langConfig.lang,
+      content: langConfig.content,
+      // Explicitly cast to any to block internal schema-dts unnameable type generation bugs
+      howToSchema: langConfig.howTo as any,
+      ogLocale: langConfig.ogLocale,
+    },
+  }));
+}
+
+// Unpack runtime props matching the active static generation lifecycle parameter context
+const { lang, content, howToSchema, ogLocale } = Astro.props;
+
+// Destructure configuration maps from localized properties safely
+const { tool, tools, errors, edit_page, downloadFile, adBlockerContent } =
+  content;
+const item = tool["Ocr_PDF"];
+const currentRoute = "/ocr-pdf";
+
+// Build out schema JSON-LD page level metadata tree values
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: `PDFEquips ${item.title}`,
+  description: item.description,
+  url: `https://www.pdfequips.com${currentRoute}`,
+};
+
+const seoConfig = {
+  title: item.seoTitle,
+  description: item.description,
+  to: item.to,
+  openGraph: {
+    url: item.to,
+    title: item.seoTitle,
+    description: item.description,
+    images: [
+      {
+        url: `https://www.pdfequips.com/images${item.to}.png`,
+        width: 1200,
+        height: 630,
+        alt: item.title,
+        type: "image/png",
+      },
+    ],
+    site_name: item.title,
+    locale: ogLocale,
+    type: "website",
+  },
+  twitter: {
+    handle: "@pdfequips",
+    site: "@pdfequips",
+    cardType: "summary_large_image",
+  },
+};
+---
+
+<BaseLayout
+  title={item.title}
+  description={item.description}
+  seoTitle={item.seoTitle}
+  to={item.to}
+  seoConfig={seoConfig}
+  lang={lang}
+>
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(websiteSchema)}
+    />
+    {
+      howToSchema && (
+        <script
+          type="application/ld+json"
+          is:inline
+          set:html={JSON.stringify(howToSchema)}
+        />
+      )
+    }
+    <link
+      rel="canonical"
+      href={`https://www.pdfequips.com/${lang}${item.to}`}
+    />
+  </Fragment>
+
+  <ToolWrapper
+    client:load
+    tools={tools}
+    data={item}
+    lang={lang}
+    errors={errors}
+    edit_page={edit_page}
+    pages={edit_page.pages}
+    page={edit_page.page}
+    downloadFile={downloadFile}
+    features={item.features}
+    howTo={howToSchema}
+    seoTitle={item.title}
+    to={currentRoute}
+    adBlockerContent={adBlockerContent}
+  />
+</BaseLayout>

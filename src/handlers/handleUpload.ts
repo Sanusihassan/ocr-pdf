@@ -1,86 +1,135 @@
-// apps/ocr-pdf/handleUpload.ts - OCR-PDF SPECIFIC
+// ============================================================================
+// REFACTORED handleUpload.ts (ocr-pdf) - Using Blob Pattern
+// ============================================================================
+
 import axios from "axios";
-import { downloadConvertedFile } from "../../src/downloadFile";
 import type { errors as _ } from "../../src/content";
 import { resetErrorMessage, setField } from "../../src/store";
 import type { Action, Dispatch } from "@reduxjs/toolkit/react";
 import { parseErrorResponse } from "../../src/utils";
 import { toast } from "react-toastify";
 
+// ============================================================================
+// FIX: Properly typed module variables (fixes TS7034)
+// ============================================================================
+
 let filesOnSubmit: string[] = [];
 let prevState: string | null = null;
 
+// ============================================================================
+// HELPERS
+// ============================================================================
+
+interface UploadResponse {
+  blob: Blob;
+  mimeType: string;
+}
+
+async function sendRequest(
+  url: string,
+  formData: FormData
+): Promise<UploadResponse> {
+  try {
+    const response = await axios.post(url, formData, {
+      responseType: "blob",
+      withCredentials: true,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    const blob = new Blob([response.data], {
+      type: response.headers["content-type"] || "application/octet-stream",
+    });
+
+    return {
+      blob,
+      mimeType: response.headers["content-type"] || "application/octet-stream",
+    };
+  } catch (err: any) {
+    // Error response might also be a Blob
+    if (err.response?.data instanceof Blob) {
+      try {
+        const text = await err.response.data.text();
+        err.response.data = JSON.parse(text);
+      } catch (parseError) {
+        console.error("Failed to parse error response:", parseError);
+        err.response.data = { code: "SERVER_ERROR" };
+      }
+    }
+    throw err;
+  }
+}
+
+// ============================================================================
+// MIME TYPE LOOKUP TABLE
+// ============================================================================
+
+const mimeTypeLookupTable: {
+  [key: string]: { outputFileMimeType: string; outputFileName: string };
+} = {
+  "application/zip": {
+    outputFileMimeType: "application/zip",
+    outputFileName: "ocr.zip",
+  },
+  "application/pdf": {
+    outputFileMimeType: "application/pdf",
+    outputFileName: "ocr.pdf",
+  },
+};
+
+// ============================================================================
+// MAIN HANDLER (Refactored)
+// ============================================================================
+
 export const handleUpload = async (
   e: React.SubmitEvent<HTMLFormElement>,
-  downloadBtn: React.RefObject<HTMLAnchorElement | null> | null,
+  // NOTE: downloadBtn parameter REMOVED (was optional anyway)
   dispatch: Dispatch<Action>,
   state: {
     path: string;
     errorMessage: string;
     fileName: string;
     selectedLanguages: {
-      k: string;
-      langs: string[];
+      k: string; // filename
+      langs: string[]; // language codes for OCR
     }[] | null;
-    converter: "free" | "premium";
+    converter: "free" | "premium"; // Determines endpoint: /api/ vs /premium/
     passwords: {
-      k: string;
-      p: string;
-    }[]
+      k: string; // filename
+      p: string; // password for encrypted PDFs
+    }[];
   },
   files: File[],
-  errors: _
+  errors: _,
+  setDownloadBlob: (blob: Blob, filename: string) => void
 ) => {
   e.preventDefault();
   dispatch(setField({ isSubmitted: true }));
 
-  if (!files || files.length === 0) return;
-
-  // ===== VALIDATE LANGUAGES =====
-  if (!state.selectedLanguages || state.selectedLanguages.length === 0) {
-    dispatch(
-      setField({
-        errorMessage:
-          errors.alerts?.noLanguagesSelected ||
-          "Please select at least one language for OCR",
-      })
-    );
+  if (!files || files.length === 0) {
     dispatch(setField({ isSubmitted: false }));
-    toast.error(
-      errors.alerts?.noLanguagesSelected ||
-      "Please select at least one language for OCR"
-    );
     return;
   }
 
-  // Validate that each file has languages selected
+  // ════════════════════════════════════════════════════════════════════════
+  // VALIDATION: Languages Required
+  // ════════════════════════════════════════════════════════════════════════
+
+  if (!state.selectedLanguages || state.selectedLanguages.length === 0) {
+    const errorMsg =
+      errors.alerts?.noLanguagesSelected ||
+      "Please select at least one language for OCR";
+
+    dispatch(setField({ errorMessage: errorMsg }));
+    dispatch(setField({ isSubmitted: false }));
+    toast.error(errorMsg);
+    return;
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // CHECK CACHE
+  // ════════════════════════════════════════════════════════════════════════
+
   const fileNames = files.map((file) => file.name);
-  // for (const fileName of fileNames) {
-  //   const fileKey = fileName.split(".")[0].replace(/[^a-zA-Z0-9]/g, "_");
-  //   const fileLanguages = state.selectedLanguages.find(
-  //     (item) => item.k === fileKey
-  //   );
-
-  //   console.log(fileLanguages)
-
-  //   if (!fileLanguages || fileLanguages.langs.length === 0) {
-  //     dispatch(
-  //       setField({
-  //         errorMessage:
-  //           errors.alerts?.noLanguagesForFile ||
-  //           `Please select language(s) for ${fileName}`,
-  //       })
-  //     );
-  //     dispatch(setField({ isSubmitted: false }));
-  //     toast.error(
-  //       errors.alerts?.noLanguagesForFile ||
-  //       `Please select language(s) for ${fileName}`
-  //     );
-  //     return;
-  //   }
-  // }
-
-  // ===== CHECK CACHE =====
   const allFilesPresent = fileNames.every((fileName) =>
     filesOnSubmit.includes(fileName)
   );
@@ -95,9 +144,13 @@ export const handleUpload = async (
     dispatch(resetErrorMessage());
     return;
   }
+
   prevState = strState;
 
-  // ===== PREPARE FORM DATA =====
+  // ════════════════════════════════════════════════════════════════════════
+  // PREPARE FORM DATA
+  // ════════════════════════════════════════════════════════════════════════
+
   const formData = new FormData();
 
   // Add files
@@ -107,10 +160,14 @@ export const handleUpload = async (
 
   // Add selected languages (as JSON string)
   formData.append("selectedLanguages", JSON.stringify(state.selectedLanguages));
-  // passwords if any:
+
+  // Add passwords for encrypted PDFs
   formData.append("passwords", JSON.stringify(state.passwords));
 
-  // ===== DETERMINE ENDPOINT =====
+  // ════════════════════════════════════════════════════════════════════════
+  // DETERMINE ENDPOINT (Dynamic based on converter type)
+  // ════════════════════════════════════════════════════════════════════════
+
   let url: string = "";
   const endpoint = state.converter === "free" ? "/api/" : "/premium/";
 
@@ -121,69 +178,70 @@ export const handleUpload = async (
     url = `${endpoint}${state.path}`;
   }
 
+  // Early exit if there's already an error
   if (state.errorMessage) {
+    dispatch(setField({ isSubmitted: false }));
     return;
   }
 
+  // Get original filename for download
   const originalFileName =
     state.fileName || files[0]?.name?.split(".").slice(0, -1).join(".");
 
-  // ===== MIME TYPE LOOKUP TABLE =====
-  const mimeTypeLookupTable: {
-    [key: string]: { outputFileMimeType: string; outputFileName: string };
-  } = {
-    "application/zip": {
-      outputFileMimeType: "application/zip",
-      outputFileName: `${originalFileName || "PDFEquips"}-ocr.zip`,
-    },
-    "application/pdf": {
-      outputFileMimeType: "application/pdf",
-      outputFileName: `${originalFileName || "PDFEquips"}-ocr.pdf`,
-    },
-  };
+  // ════════════════════════════════════════════════════════════════════════
+  // API Call & Blob Handling
+  // ════════════════════════════════════════════════════════════════════════
 
   try {
-    // ===== MAKE REQUEST =====
-    const response = await axios.post(url, formData, {
-      responseType: "arraybuffer",
-      withCredentials: true,
-    });
+    // NEW: Use sendRequest helper
+    const { blob, mimeType } = await sendRequest(url, formData);
 
-    const mimeType = response.data.type || response.headers["content-type"];
+    // Look up expected output format
     const mimeTypeData = mimeTypeLookupTable[mimeType] || {
       outputFileMimeType: mimeType,
       outputFileName: "",
     };
+
     const { outputFileMimeType, outputFileName } = mimeTypeData;
 
-    dispatch(setField({ showDownloadBtn: true }));
-    downloadConvertedFile(
-      response,
-      outputFileMimeType,
-      outputFileName || state.fileName,
-      downloadBtn
+    // Ensure blob has correct MIME type
+    const typedBlob = new Blob([blob], {
+      type: outputFileMimeType || "application/octet-stream",
+    });
+
+    // ───────────────────────────────────────────────────────────────────────
+    // NEW: Deferred download via setDownloadBlob
+    // ───────────────────────────────────────────────────────────────────────
+    setDownloadBlob(
+      typedBlob,
+      outputFileName && originalFileName
+        ? `${originalFileName}-ocr${outputFileName.substring(outputFileName.lastIndexOf("."))}`
+        : outputFileName || state.fileName
     );
+
+    // Update tracking
     filesOnSubmit = files.map((f) => f.name);
 
-    if (response.status !== 200) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    } else {
-      dispatch(resetErrorMessage());
-      dispatch(setField({ isSubmitted: false }));
-    }
+    // Update UI state
+    dispatch(setField({ showDownloadBtn: true }));
+    dispatch(resetErrorMessage());
+    dispatch(setField({ isSubmitted: false }));
   } catch (error) {
-    // ===== NETWORK ERROR =====
+    // ───────────────────────────────────────────────────────────────────────
+    // Error Handling
+    // ───────────────────────────────────────────────────────────────────────
+
     if ((error as { code: string }).code === "ERR_NETWORK") {
       dispatch(setField({ errorMessage: errors.ERR_NETWORK.message }));
+      dispatch(setField({ isSubmitted: false }));
       toast.error(errors.ERR_NETWORK.message);
       return;
     }
 
-    // ===== SERVER VALIDATION/AUTH ERRORS =====
+    // Handle server validation/auth errors
     if (axios.isAxiosError(error) && error.response) {
       try {
-        // apps/ocr-pdf/handleUpload.ts - UPDATE ERROR CODE MAP
-
+        // FIX: Properly type errorCode (fixes TS2538)
         const errorCodeMap: Record<string, string> = {
           // General file validation errors
           NO_FILES_PROVIDED:
@@ -201,7 +259,7 @@ export const handleUpload = async (
           // PDF-specific errors
           INVALID_PDF: errors.alerts.invalidPdf || "Invalid PDF file",
 
-          // ✅ OCR-specific errors (UPDATED)
+          // OCR-specific errors
           NO_LANGUAGES_PROVIDED:
             errors.alerts.noLanguagesSelected ||
             "Please select language(s) for OCR",
@@ -239,7 +297,8 @@ export const handleUpload = async (
             "Session expired. Please sign in again.",
           AUTH_INVALID_TOKEN:
             errors.alerts.invalidToken || "Invalid authentication token",
-          AUTH_USER_NOT_FOUND: errors.alerts.userNotFound || "User not found",
+          AUTH_USER_NOT_FOUND:
+            errors.alerts.userNotFound || "User not found",
           AUTH_SERVER_ERROR:
             errors.alerts.authError || "Authentication error",
 
@@ -247,24 +306,27 @@ export const handleUpload = async (
           SERVER_CONFIG_ERROR:
             errors.alerts.serverError || "Server configuration error",
 
-          // Other errors
-          MAX_PAGES_EXCEEDED: errors.MAX_PAGES_EXCEEDED?.message,
-
-          // ✅ Premium/Free tier errors (UPDATED)
+          // Tier errors
           INSUFFICIENT_CONVERSION_UNITS:
             errors.alerts.insufficientUnits ||
             "Not enough conversion units. Upgrade or recharge!",
           FREE_TIER_LIMIT_EXCEEDED:
             errors.alerts.freeTierLimitExceeded ||
             "Free tier limit exceeded. Please upgrade to premium.",
+
+          // Other errors
+          MAX_PAGES_EXCEEDED:
+            errors.MAX_PAGES_EXCEEDED?.message || "Maximum pages exceeded",
         };
 
         const { errorCode } = parseErrorResponse(error);
-        const message = errorCodeMap[errorCode as keyof typeof errorCodeMap];
 
-        if (message) {
+        // FIX: Check if errorCode exists before indexing (fixes TS2538)
+        if (errorCode && errorCode in errorCodeMap) {
+          const message = errorCodeMap[errorCode];
           dispatch(setField({ limitationMsg: message }));
           dispatch(setField({ errorCode }));
+          dispatch(setField({ isSubmitted: false }));
           toast.error(message);
           return;
         }
@@ -273,8 +335,6 @@ export const handleUpload = async (
       }
     }
 
-    dispatch(setField({ isSubmitted: false }));
-  } finally {
     dispatch(setField({ isSubmitted: false }));
   }
 };
