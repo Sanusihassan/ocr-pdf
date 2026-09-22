@@ -81,6 +81,32 @@ export const downloadFile: _downloadFile = {
     },
     backto: {
         "ocr-pdf": "返回OCR PDF"
+    },
+    shareOverlayExtra: {
+        copiedText: "已复制",
+        copy_link: "复制链接",
+    },
+    premiumToast: {
+        variants: [
+            {
+                message: "想要更好的效果？试试 Premium 以获得更出色的排版和准确度！",
+                actionButton: "体验 Premium",
+            },
+            {
+                message: "想要无广告体验？Premium 可完全移除所有广告。",
+                actionButton: "升级 Premium",
+            },
+        ],
+    },
+    shareOverlay: {
+        "ocr-pdf": {
+            modalTitles: ["分享这份喜爱！", "您的支持非常重要！", "加入我们的行列！"],
+            modalDescription:
+                "将扫描的文本页面转化为真正可以搜索和选择的内容 — 一次实打实的升级。",
+            shareText:
+                "对扫描的 PDF 执行 OCR 识别，添加可搜索和可选择的文本层，生成包含相同页面的新 PDF。",
+            url: "https://www.pdfequips.com/ocr-pdf",
+        },
     }
 };
 

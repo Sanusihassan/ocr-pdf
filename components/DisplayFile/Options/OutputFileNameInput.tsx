@@ -5,6 +5,8 @@ import { setField, type ToolState } from "../../../src/store";
 import { useEffect, useRef } from "react";
 import { useFileStore } from "../../../src/file-store";
 
+const THEME_COLOR = "#006266";
+
 export const OutputFileNameInput = ({
   content,
 }: {
@@ -26,20 +28,32 @@ export const OutputFileNameInput = ({
       hasSetDefault.current = true; // ensure we don't reset again
     }
   }, [files, fileName, dispatch]);
+
   return (
-    <div className="input-wrapper my-6 mx-3">
-      <label htmlFor="fileNameInput" className="label">
+    <div className="my-6 mx-3">
+      <label
+        htmlFor="fileNameInput"
+        className="block text-sm text-gray-700 mb-1.5"
+      >
         {content.label}
       </label>
       <input
         type="text"
-        className="input"
         id="fileNameInput"
         placeholder={content.placeholder}
         value={fileName}
         onChange={handleChange}
+        className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none"
+        onFocus={(e) => {
+          e.target.style.borderColor = THEME_COLOR;
+          e.target.style.boxShadow = `0 0 0 2px ${THEME_COLOR}40`;
+        }}
+        onBlur={(e) => {
+          e.target.style.borderColor = "#e5e7eb";
+          e.target.style.boxShadow = "none";
+        }}
       />
-      <div className="helper-text">{content.helperText}</div>
+      <div className="text-xs text-gray-500 mt-1.5">{content.helperText}</div>
     </div>
   );
 };

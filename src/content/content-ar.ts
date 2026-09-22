@@ -81,6 +81,32 @@ export const downloadFile: _downloadFile = {
     },
     backto: {
         "ocr-pdf": "العودة إلى PDF المُحدَّد بتقنية OCR"
+    },
+    premiumToast: {
+        variants: [
+            {
+                message: "هل تريد نتائج أفضل؟ جرب Premium للحصول على دقة وتنسيق ممتازين!",
+                actionButton: "جرب Premium",
+            },
+            {
+                message: "هل تفضل تجربة خالية من الإعلانات؟ Premium يزيل الإعلانات تمامًا.",
+                actionButton: "احصل على Premium",
+            },
+        ],
+    },
+    shareOverlayExtra: {
+        copiedText: "تم النسخ",
+        copy_link: "نسخ الرابط",
+    },
+    shareOverlay: {
+        "ocr-pdf": {
+            modalTitles: ["شارك الحب!", "دعمك يهمنا!", "انضم إلى المبادرة!"],
+            modalDescription:
+                "تحويل صفحة نصية ممسوحة ضوئيًا إلى نص يمكنك البحث فيه وتحديده بالفعل — ترقية حقيقية.",
+            shareText:
+                "يجري التعرف الضوئي على الحروف (OCR) على ملف PDF ممسوح ضوئيًا لإضافة طبقة نصية قابلة للبحث والتحديد، مما ينتج ملف PDF جديدًا بنفس الصفحات.",
+            url: "https://www.pdfequips.com/ocr-pdf",
+        },
     }
 };
 

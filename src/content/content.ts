@@ -78,6 +78,32 @@ export const downloadFile = {
   },
   backto: {
     "ocr-pdf": "Back To OCR PDF"
+  },
+  shareOverlayExtra: {
+    copiedText: "Copied",
+    copy_link: "Copy Link",
+  },
+  premiumToast: {
+    variants: [
+      {
+        message: "Want better results? Try Premium for superior formatting & accuracy!",
+        actionButton: "Try Premium",
+      },
+      {
+        message: "Prefer an ad-free experience? Premium removes ads entirely.",
+        actionButton: "Go Premium",
+      },
+    ],
+  },
+  shareOverlay: {
+    "ocr-pdf": {
+      modalTitles: ["Share the love!", "Your support matters!", "Join the movement!"],
+      modalDescription:
+        "Turning a scanned page of text into something you can actually search and select — a genuine upgrade.",
+      shareText:
+        "Runs OCR on a scanned PDF to add a searchable, selectable text layer, producing a new PDF with the same pages.",
+      url: "https://www.pdfequips.com/ocr-pdf",
+    },
   }
 };
 

@@ -81,6 +81,32 @@ export const downloadFile: _downloadFile = {
   },
   backto: {
     "ocr-pdf": "Volver a OCR PDF"
+  },
+  shareOverlayExtra: {
+    copiedText: "Copiado",
+    copy_link: "Copiar enlace",
+  },
+  premiumToast: {
+    variants: [
+      {
+        message: "¡¿Quieres mejores resultados?! Prueba Premium para obtener mayor formato y precisión.",
+        actionButton: "Probar Premium",
+      },
+      {
+        message: "¿Prefieres una experiencia sin anuncios? Premium elimina los anuncios por completo.",
+        actionButton: "Obtener Premium",
+      },
+    ],
+  },
+  shareOverlay: {
+    "ocr-pdf": {
+      modalTitles: ["¡Comparte el amor!", "¡Tu apoyo importa!", "¡Únete al movimiento!"],
+      modalDescription:
+        "Convierte una página de texto escaneada en algo en lo que realmente puedes buscar y seleccionar: una mejora genuina.",
+      shareText:
+        "Ejecuta OCR en un PDF escaneado para añadir una capa de texto en la que se pueda buscar y seleccionar, generando un nuevo PDF con las mismas páginas.",
+      url: "https://www.pdfequips.com/ocr-pdf",
+    },
   }
 };
 

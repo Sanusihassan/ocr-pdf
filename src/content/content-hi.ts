@@ -82,6 +82,32 @@ export const downloadFile: _downloadFile = {
     },
     backto: {
         "ocr-pdf": "OCR पीडीएफ पर वापस जाएं"
+    },
+    shareOverlayExtra: {
+        copiedText: "कॉपी किया गया",
+        copy_link: "लिंक कॉपी करें",
+    },
+    premiumToast: {
+        variants: [
+            {
+                message: "बेहतर परिणाम चाहते हैं? बेहतर फॉर्मेटिंग और सटीकता के लिए Premium आज़माएं!",
+                actionButton: "Premium आज़माएं",
+            },
+            {
+                message: "विज्ञापन-मुक्त अनुभव पसंद करते हैं? Premium विज्ञापनों को पूरी तरह से हटा देता है।",
+                actionButton: "Premium प्राप्त करें",
+            },
+        ],
+    },
+    shareOverlay: {
+        "ocr-pdf": {
+            modalTitles: ["प्यार बांटें!", "आपका समर्थन मायने रखता है!", "इस मुहिम से जुड़ें!"],
+            modalDescription:
+                "स्कैन किए गए टेक्स्ट पेज को किसी ऐसी चीज़ में बदलना जिसे आप वास्तव में खोज और चुन सकें — एक सच्चा अपग्रेड।",
+            shareText:
+                "स्कैन किए गए PDF पर OCR चलाता है ताकि खोजने योग्य और चयन योग्य टेक्स्ट लेयर जोड़ी जा सके, जिससे समान पृष्ठों के साथ एक नया PDF बनता है।",
+            url: "https://www.pdfequips.com/ocr-pdf",
+        },
     }
 };
 
