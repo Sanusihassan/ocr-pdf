@@ -73,6 +73,8 @@ const Tool: React.FC<ToolProps> = ({
 
   useEffect(() => {
     dispatch(setField({ showDownloadBtn: false }));
+    // hides the static video section while files are being processed
+    document.body.classList.toggle("tool-in-use", !stateShowTool);
   }, [stateShowTool]);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const { isValid } = validateFiles(

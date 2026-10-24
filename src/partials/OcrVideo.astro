@@ -1,0 +1,137 @@
+---
+// Click-to-load YouTube walkthrough + its VideoObject schema.
+// No YouTube JS loads until the visitor presses play.
+import { OCR_VIDEO, ocrVideoCopy } from "../seo/video";
+
+interface Props {
+  lang: string;
+}
+
+const copy = ocrVideoCopy[Astro.props.lang] ?? ocrVideoCopy.en;
+const thumb = "https://i.ytimg.com/vi/" + OCR_VIDEO.id;
+const embed = "https://www.youtube-nocookie.com/embed/" + OCR_VIDEO.id;
+const watch = "https://www.youtube.com/watch?v=" + OCR_VIDEO.id;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  name: OCR_VIDEO.name,
+  description: OCR_VIDEO.description,
+  thumbnailUrl: [thumb + "/maxresdefault.jpg", thumb + "/hqdefault.jpg"],
+  uploadDate: OCR_VIDEO.uploadDate,
+  embedUrl: embed,
+  contentUrl: watch,
+};
+---
+
+<section id="ocr-video" class="container">
+  <h2>{copy.heading}</h2>
+  <figure>
+    <a
+      href={watch}
+      class="yt-facade"
+      data-embed={embed}
+      data-title={OCR_VIDEO.name}
+      aria-label={copy.play + ": " + OCR_VIDEO.name}
+    >
+      <img
+        src={thumb + "/maxresdefault.jpg"}
+        alt={OCR_VIDEO.name}
+        width="1280"
+        height="720"
+        loading="lazy"
+        decoding="async"
+        onerror={"this.onerror=null;this.src='" + thumb + "/hqdefault.jpg'"}
+      />
+      <span class="play" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+      </span>
+    </a>
+    <figcaption>{copy.caption}</figcaption>
+  </figure>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
+</section>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("#ocr-video .yt-facade").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+      e.preventDefault();
+      const iframe = document.createElement("iframe");
+      iframe.src = link.dataset.embed + "?autoplay=1";
+      iframe.title = link.dataset.title || "YouTube video player";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allowFullscreen = true;
+      const box = document.createElement("div");
+      box.className = "yt-player";
+      box.appendChild(iframe);
+      link.replaceWith(box);
+    });
+  });
+</script>
+
+<style>
+  #ocr-video {
+    max-width: 48rem;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .yt-facade,
+  .yt-player {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: #000;
+  }
+  .yt-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .play svg {
+    width: 4.5rem;
+    height: 4.5rem;
+    padding: 1.1rem 1rem 1.1rem 1.4rem;
+    border-radius: 50%;
+    background: #fc271c;
+    fill: #fff;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.3);
+    transition: transform 0.15s;
+  }
+  .yt-facade:hover .play svg {
+    transform: scale(1.08);
+  }
+  :global(.yt-player iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #6b7280;
+  }
+  :global(body.tool-in-use) #ocr-video {
+    display: none;
+  }
+</style>

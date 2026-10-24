@@ -9,6 +9,7 @@ import {
 } from "../content/content";
 
 import { OCRPDFHOWTO } from "../how-to";
+import OcrVideo from "../partials/OcrVideo.astro";
 import BaseLayout from "../partials/BaseLayout.astro";
 import { ToolWrapper } from "../../components/ToolWrapper";
 
@@ -90,4 +91,5 @@ const seoConfig = {
     to={currentRoute}
     adBlockerContent={adBlockerContent}
   />
+  <OcrVideo lang={lang} />
 </BaseLayout>
