@@ -46,7 +46,7 @@ export const edit_page: _edit_page = {
   filenameOptions: {
     label: "Nombre del archivo de salida (opcional)",
     placeholder: "Ingrese el nombre del archivo",
-    helperText: "Este será el nombre del PDF comprimido al descargarlo.",
+    helperText: "Este será el nombre del documento que se descargará.",
     cta: "Ver planes",
     upgradeNotice: {
       msg: "Los niveles del 2.0 al 10.0 están disponibles con la versión premium.",

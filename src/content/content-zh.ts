@@ -46,7 +46,7 @@ export const edit_page: _edit_page = {
     filenameOptions: {
         label: "输出文件名（可选）",
         placeholder: "输入文件名",
-        helperText: "这将是下载时压缩 PDF 的名称。",
+        helperText: "这将是下载的文档名称。",
         cta: "查看方案",
         upgradeNotice: {
             msg: "2.0 到 10.0 的级别可在高级版中使用。",
