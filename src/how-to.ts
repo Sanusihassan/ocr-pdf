@@ -1,5 +1,3 @@
-// AUTO-GENERATED HOW-TO SCHEMAS – DO NOT EDIT
-
 import type { WithContext, HowTo } from "schema-dts";
 
 export const OCRPDFHOWTO: WithContext<HowTo> = {
