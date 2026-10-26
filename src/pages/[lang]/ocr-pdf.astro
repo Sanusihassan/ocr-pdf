@@ -1,6 +1,8 @@
 ---
 // src/pages/[lang]/ocr-pdf.astro
 import OcrVideo from "../../partials/OcrVideo.astro";
+import Faq from "../../../components/Faq.astro";
+import { faqs } from "../../content/faq";
 import BaseLayout from "../../partials/BaseLayout.astro";
 import { ToolWrapper } from "../../../components/ToolWrapper";
 
@@ -112,6 +114,8 @@ const seoConfig = {
     cardType: "summary_large_image",
   },
 };
+const faq = faqs[lang];
+const faqItems = faq?.items[item.to];
 ---
 
 <BaseLayout
@@ -160,4 +164,5 @@ const seoConfig = {
     adBlockerContent={adBlockerContent}
   />
   <OcrVideo lang={lang} />
+  {faq && faqItems && <Faq title={faq.title} items={faqItems} />}
 </BaseLayout>
