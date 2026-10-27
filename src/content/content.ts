@@ -1,8 +1,8 @@
 export const tool = {
   Ocr_PDF: {
     title: "OCR PDF",
-    seoTitle: "Convert PDF to Searchable Text Online",
-    description: "Transform static PDFs into interactive, searchable documents with precise text recognition and selection capabilities.",
+    seoTitle: "OCR PDF Online Free - Make a Scanned PDF Searchable",
+    description: "Make scanned PDFs searchable for free. OCR turns the text in your PDF into real text you can search, select and copy. Supports multiple languages.",
     keywords: "OCR PDF, convert PDF to text, searchable PDF, PDF text recognition, online OCR tool, extract text from PDF",
     color: "#006266",
     type: ".pdf",
