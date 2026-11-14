@@ -11,6 +11,7 @@ import {
 import { OCRPDFHOWTO } from "../how-to";
 import OcrVideo from "../partials/OcrVideo.astro";
 import Faq from "../../components/Faq.astro";
+import ToolGuide from "../../components/ToolGuide.astro";
 import { faqs } from "../content/faq";
 import BaseLayout from "../partials/BaseLayout.astro";
 import { ToolWrapper } from "../../components/ToolWrapper";
@@ -96,5 +97,6 @@ const faqItems = faq?.items[item.to];
     adBlockerContent={adBlockerContent}
   />
   <OcrVideo lang={lang} />
+  <ToolGuide to={currentRoute} lang={lang} />
   {faq && faqItems && <Faq title={faq.title} items={faqItems} />}
 </BaseLayout>

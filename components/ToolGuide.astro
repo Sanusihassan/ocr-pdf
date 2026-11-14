@@ -1,0 +1,51 @@
+---
+// "Read the guide" card linking a tool page to its blog post. Internal links
+// like this help the post get indexed. Renders nothing for tools without one.
+import { getGuide } from "../src/seo/guides";
+
+interface Props {
+  to: string;
+  lang: string;
+}
+
+const { to, lang } = Astro.props;
+const guide = getGuide(to, lang);
+---
+
+{
+  guide && (
+    <aside class="tool-guide container hide-when-editing">
+      <p class="label">{guide.label}</p>
+      <a href={guide.href}>{guide.title}</a>
+    </aside>
+  )
+}
+
+<style>
+  .tool-guide {
+    max-width: 48rem;
+    margin: 2rem auto;
+    padding: 1.25rem 1.5rem;
+    border-inline-start: 4px solid var(--guide-accent, #fc271c);
+    border-radius: 0.75rem;
+    background: #f8f9fa;
+  }
+  .label {
+    margin: 0 0 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6b7280;
+  }
+  a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--guide-accent, #fc271c);
+  }
+</style>
